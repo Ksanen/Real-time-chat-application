@@ -11,12 +11,7 @@ popupContact.addEventListener("click", (e) => {
   }
 });
 
-popupCancelBtn.addEventListener("click", () => {
-  hidePopUp();
-  clearErrorMessage();
-});
-popupAddBtn.addEventListener("click", () => {
-  if (!addChat()) hidePopUp();
-});
+popupCancelBtn.addEventListener("click", hidePopUp);
+popupAddBtn.addEventListener("click", addChat);
 addContactBtn.addEventListener("click", showPopup);
 sendMessageBtb.addEventListener("click", sendMessage);

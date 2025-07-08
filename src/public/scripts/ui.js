@@ -6,6 +6,7 @@ function hidePopUp() {
   document.querySelector(".popup").classList.remove("popup--show");
   document.querySelector(".layer").classList.add("closed");
   document.querySelector(".popup__info__code").value = "";
+  clearErrorMessage();
 }
 function clearErrorMessage() {
   document.querySelector(".popup__error").textContent = "";

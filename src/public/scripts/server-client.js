@@ -46,17 +46,16 @@ async function openChat(contact) {
     },
     body: JSON.stringify({ nameOfChat: nameOfChat }),
   });
+  const chatData = await response.json();
+  if (!chatData.success) return;
   socket.emit("join-room", nameOfChat);
   const secondMemberUsername = contact.querySelector(
     ".contact__info__name"
   ).textContent;
-  const chatData = await response.json();
-  if (chatData.success) {
-    addMessages(chatData);
-    document.querySelector(".app__chat__header").textContent =
-      secondMemberUsername;
-    setActiveContact(contact);
-    document.querySelector(".app__chat").classList.remove("closed");
-    document.querySelector(".app__info").classList.add("closed");
-  }
+  addMessages(chatData);
+  document.querySelector(".app__chat__header").textContent =
+    secondMemberUsername;
+  setActiveContact(contact);
+  document.querySelector(".app__chat").classList.remove("closed");
+  document.querySelector(".app__info").classList.add("closed");
 }
