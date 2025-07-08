@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/styl.css" />
+  </head>
+
+  <body>
+<script src="/socket.io/socket.io.js"></script>
+
+    <div class="app">
+      <div class="layer closed"></div>
+      <h1 class="app__header">
+        <span data-username="<%= locals.username %>">Witaj <%= locals.username %> </span>
+        <span>Twój kod to <%= locals.code %></span>
+        <form method="POST" action="/logout">
+          <input
+            class="app__header__logout"
+            type="submit"
+            value="wyloguj się"
+          />
+        </form>
+      </h1>
+      <main class="app__content">
+        <div class="app__menu">
+          <input
+            type="button"
+            class="app__menu__add-contact"
+            value="dodaj kontakt"
+          />
+          <div class="app__menu__contacts">
+          <% for(let i=0;i<locals.contacts.length;i++){ %>
+          <div class="contact" data-name-of-chat="<%= locals.contacts[i].nameOfChat  %>">
+            <div class="contact__img"> <%= locals.contacts[i].username.slice(0,2) %> </div>
+              <div>
+                <p class="contact__info__name"><%= locals.contacts[i].username %></p>
+                <p class="contact__info__text">
+                  <% if(locals.contacts[i].lastMessage) { %>
+                      <% if(locals.contacts[i].sender===locals.username){%>
+                        ty:
+                      <% }%>
+                      <%= locals.contacts[i].lastMessage %>
+                  <%} %>
+                  </p>
+                </div>
+          </div>
+          <% } %>
+          </div>
+
+        </div>
+        <div class="app__chat closed">
+          <h1 class="app__chat__header"> </h1>
+          <div class="app__chat__content">
+            <div class="app__chat__content__message">Lorem ipsum</div>
+            <div
+              class="app__chat__content__message app__chat__content__message--current"
+            >
+              test
+            </div>
+          </div>
+          <form class="app__chat__footer">
+            <input
+              type="text"
+              class="app__chat__footer__message"
+              name="message"
+              placeholder="wiadomość"
+            />
+            <input
+              type="button"
+              class="app__chat__footer__send"
+              value="wyślij"
+            />
+          </form>
+        </div>
+        <div class="app__info">
+          Otwórz chat
+        </div>
+      </main>
+    </div>
+  </body>
+  <div class="popup">
+    <div class="popup__info">
+      <p class="popup__info__title">Wpisz kod</p>
+      <input type="text" name="code" class="popup__info__code" />
+    </div>
+    <div class="popup__buttons">
+      <input
+        type="button"
+        value="anuluj"
+        class="popup__btn popup__btn--cancel"
+      />
+      <input type="button" value="dodaj" class="popup__btn popup__btn--add" />
+    </div>
+    <div class="popup__error"></div>
+  </div>
+  <script src="/scripts/script.js"></script>
+</html>

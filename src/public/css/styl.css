@@ -1,0 +1,290 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --formSubmitbgColor: blue;
+  --formFieldsBorderRadius: 5px;
+  --headerBgColor: #2c3e50;
+  --logoutButtonBgColor: #e74c3c;
+  --menuBgColor: #34495e;
+  --addContactBgColor: #1abc9c;
+  --contactBgColor: #3b5872;
+  --chatBgColor: #ecf0f1;
+  --chatHeaderBgColor: #2980b9;
+  --messageBgColor: #ffffff;
+  --appInfoBgColor: #95a5a6;
+  --sendButtonBgColor: #1abc9c;
+}
+body {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.layer {
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 10;
+  user-select: none;
+}
+.form {
+  width: clamp(200px, 80%, 400px);
+  background-color: rgb(0, 0, 0);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  border-radius: 12px;
+  gap: 20px;
+  box-shadow: 0 0 10px black;
+}
+.form__title {
+  text-align: center;
+}
+.form__field {
+  background-color: white;
+  border-radius: var(--formFieldsBorderRadius);
+  border: none;
+  outline: none;
+  padding-bottom: 5px;
+  padding: 10px;
+  position: relative;
+}
+.form__field:focus {
+  background-color: rgb(224, 231, 220);
+}
+.form__submit {
+  padding: 10px;
+  background-color: var(--formSubmitbgColor);
+  border-radius: var(--formFieldsBorderRadius);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.form__submit:hover {
+  background-color: hsl(from var(--formSubmitbgColor) h s calc(l + 10));
+}
+.form__info {
+  text-align: center;
+  height: 20px;
+}
+
+.app {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.app__header {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--headerBgColor);
+  color: white;
+  padding: 1rem;
+}
+.app__header__logout {
+  background-color: var(--logoutButtonBgColor);
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+.app__header__logout:hover {
+  background-color: #c0392b;
+}
+.app__content {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+.app__menu {
+  width: 300px;
+  padding: 5px;
+  background-color: var(--menuBgColor);
+
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+.contact {
+  background-color: var(--contactBgColor);
+  border-radius: 12px;
+  margin: 10px 0;
+  padding: 5px;
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+.contact--active {
+  background-color: #4f6881;
+}
+.contact:hover {
+  background-color: hsl(from lightblue h s calc(l - 10));
+}
+.contact__img {
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+.contact__info__name,
+.contact__info__text {
+  color: white;
+}
+
+.app__chat {
+  flex-grow: 1;
+  background-color: var(--chatBgColor);
+  display: flex;
+  flex-direction: column;
+}
+.app__info {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--appInfoBgColor);
+}
+.app__chat__header {
+  background-color: var(--chatHeaderBgColor);
+  color: white;
+  padding: 10px;
+}
+
+.app__chat__content {
+  padding: 5px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.app__chat__content__message {
+  background-color: var(--messageBgColor);
+  border-radius: 12px;
+  width: fit-content;
+  min-width: 200px;
+  max-width: min(500px, 90%);
+  padding: 10px;
+  margin: 10px 0;
+}
+.app__chat__content__message--current {
+  margin-left: auto;
+}
+.app__chat__footer {
+  display: flex;
+  border-top: 1px solid gray;
+}
+
+.app__chat__footer__message {
+  padding: 10px;
+  flex-grow: 1;
+  border: none;
+  outline: none;
+}
+.app__chat__footer__send {
+  width: 100px;
+  background-color: var(--sendButtonBgColor);
+  color: white;
+  transition: all 200ms ease;
+  border: none;
+  outline: none;
+}
+.app__chat__footer__send:hover {
+  background-color: #16a085;
+}
+.app__menu__add-contact {
+  background-color: var(--addContactBgColor);
+  border: 0;
+  outline: 0;
+  padding: 10px;
+  border-radius: 12px;
+  width: 100%;
+  color: white;
+  cursor: pointer;
+}
+.app__menu__add-contact:hover {
+  background-color: hsl(from var(--addContactBgColor) h s calc(l + 10));
+}
+.popup {
+  position: absolute;
+  width: 500px;
+  background-color: #ffffff;
+  border: 1px solid #bdc3c7;
+  color: #2c3e50;
+  border-radius: 12px;
+  padding: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 11;
+}
+.popup--show {
+  display: flex;
+}
+.popup__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.popup__info__title {
+  text-align: center;
+}
+.popup__info__code {
+  border-radius: 12px;
+  outline: none;
+  border: 1px solid #95a5a6;
+  padding: 10px;
+  flex-grow: 1;
+  background-color: #ecf0f1;
+}
+.popup__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.popup__btn {
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  color: white;
+  transition: all 200m ease;
+  cursor: pointer;
+}
+.popup__btn--add {
+  background-color: #1abc9c;
+}
+
+.popup__btn--add:hover {
+  background-color: #16a085;
+}
+.popup__btn--cancel {
+  background-color: #95a5a6;
+}
+.popup__btn--cancel:hover {
+  background-color: #7f8c8d;
+}
+.popup__error {
+  color: red;
+  text-align: center;
+}
+.closed {
+  display: none;
+}
+@media only screen and(max-width:600px) {
+  .app__header {
+    flex-direction: column;
+  }
+}
