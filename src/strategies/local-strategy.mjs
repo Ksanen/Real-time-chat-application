@@ -19,11 +19,14 @@ passport.deserializeUser(async (id, done) => {
 passport.use(
   new Strategy(async (username, password, done) => {
     try {
-      const userExists = await User.findOne({ username: username });
+      const usernameRegExp = new RegExp(`^` + username + `$`, `i`);
+      const userExists = await User.findOne({
+        username: usernameRegExp,
+      });
       if (!userExists) {
         return done(null, false, { msg: "użytkownik nie istnieje" });
       }
-      const passwordIsCorrect = await verifyPassword(username, password);
+      const passwordIsCorrect = await verifyPassword(usernameRegExp, password);
       if (!passwordIsCorrect) {
         return done(null, false, { msg: "niepoprawne hasło" });
       }
