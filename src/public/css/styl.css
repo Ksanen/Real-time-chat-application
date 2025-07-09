@@ -87,6 +87,7 @@ body {
   background-color: var(--headerBgColor);
   color: white;
   padding: 1rem;
+  font-size: clamp(1rem, calc(2vw + 1rem), 4rem);
 }
 .app__header__logout {
   background-color: var(--logoutButtonBgColor);
@@ -107,10 +108,9 @@ body {
   overflow: hidden;
 }
 .app__menu {
-  width: 300px;
+  width: clamp(200px, 30%, 400px);
   padding: 5px;
   background-color: var(--menuBgColor);
-
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 .contact {
@@ -122,6 +122,7 @@ body {
   gap: 5px;
   cursor: pointer;
   transition: all 200ms ease;
+  overflow: hidden;
 }
 .contact--active {
   background-color: #4f6881;
@@ -142,6 +143,7 @@ body {
 .contact__info__name,
 .contact__info__text {
   color: white;
+  text-wrap: nowrap;
 }
 
 .app__chat {
@@ -173,10 +175,9 @@ body {
   background-color: var(--messageBgColor);
   border-radius: 12px;
   width: fit-content;
-  min-width: 200px;
   max-width: min(500px, 90%);
   padding: 10px;
-  margin: 10px 0;
+  margin: 15px 0;
 }
 .app__chat__content__message--current {
   margin-left: auto;
@@ -218,7 +219,7 @@ body {
 }
 .popup {
   position: absolute;
-  width: 500px;
+  width: clamp(200px, 50%, 500px);
   background-color: #ffffff;
   border: 1px solid #bdc3c7;
   color: #2c3e50;
@@ -237,9 +238,11 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 .popup__info__title {
   text-align: center;
+  flex-grow: 1;
 }
 .popup__info__code {
   border-radius: 12px;

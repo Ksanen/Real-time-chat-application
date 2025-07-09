@@ -4,10 +4,10 @@ import User from "../../models/userSchema.mjs";
 export default (socket, io) => {
   socket.on("newMessage", async (message) => {
     try {
+      if (typeof message !== "string" || message.length === 0) return;
       const userId = socket.request.session.passport.user;
       const user = await User.findById(userId);
       if (!user) return;
-      if (typeof message !== "string" || message.length === 0) return;
       const messageId = await sendMessageToChat(
         message,
         socket.request.session.currentNameOfChat,
