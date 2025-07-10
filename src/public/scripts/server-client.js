@@ -53,7 +53,8 @@ async function openChat(contact) {
     ".contact__info__name"
   ).textContent;
   addMessages(chatData);
-  document.querySelector(".chat__header").textContent = secondMemberUsername;
+  document.querySelector(".chat__header__username").textContent =
+    secondMemberUsername;
   setActiveContact(contact);
   document.querySelector(".chat").classList.remove("closed");
   document.querySelector(".chat").classList.add("chat--mobile--open");

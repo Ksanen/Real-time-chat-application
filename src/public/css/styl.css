@@ -137,7 +137,8 @@ body {
 .contact:hover {
   background-color: hsl(from lightblue h s calc(l - 10));
 }
-.contact__img {
+.contact__avatar,
+.chat__header__avatar {
   background-color: white;
   border-radius: 50%;
   display: flex;
@@ -169,6 +170,8 @@ body {
   background-color: var(--chatHeaderBgColor);
   color: white;
   padding: 10px;
+  display: flex;
+  gap: 5px;
 }
 
 .chat__content {

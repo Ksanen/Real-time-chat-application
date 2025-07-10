@@ -34,7 +34,7 @@
 
           <% for(let i=0;i<locals.contacts.length;i++){ %>
           <div class="contact" data-name-of-chat="<%= locals.contacts[i].nameOfChat  %>">
-            <div class="contact__img"> <%= locals.contacts[i].username.slice(0,2) %> </div>
+            <div class="contact__avatar"> <%= locals.contacts[i].username.slice(0,2) %> </div>
               <div>
                 <p class="contact__info__name"><%= locals.contacts[i].username %></p>
                 <p class="contact__info__text">
@@ -54,7 +54,8 @@
         </div>
         <div class="chat">
           <h1 class="chat__header">
-           
+            <div class="chat__header__avatar"></div>
+            <div class="chat__header__username"></div>
           </h1>
           <div class="chat__content">
             <div class="chat__content__message">Lorem ipsum</div>
