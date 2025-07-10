@@ -55,11 +55,9 @@ async function openChat(contact) {
   addMessages(chatData);
   document.querySelector(".chat__header__username").textContent =
     secondMemberUsername;
+  document.querySelector(".chat__header__avatar").textContent =
+    secondMemberUsername.slice(0, 2);
   setActiveContact(contact);
   document.querySelector(".chat").classList.remove("closed");
   document.querySelector(".chat").classList.add("chat--mobile--open");
-  const appMenuMobile = document.querySelector(".app__menu--mobile");
-  if (appMenuMobile) {
-    appMenuMobile.classList.add("app__menu--mobile--closed");
-  }
 }
