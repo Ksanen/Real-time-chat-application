@@ -53,9 +53,14 @@ function createMessage(message, messageId, senderUsername) {
   }
   return messageDiv;
 }
+function returnToContacts() {
+  const appMenu = document.querySelector(".app__menu");
+  appMenu.classList.remove("app__menu--mobile--closed");
+}
 function adjustClassesToWindowSize() {
   const appMenu = document.querySelector(".app__menu");
   const chat = document.querySelector(".chat");
+
   if (window.innerWidth < 600) {
     appMenu.classList.remove("app__menu--desktop");
     appMenu.classList.add("app__menu--mobile");
@@ -63,6 +68,7 @@ function adjustClassesToWindowSize() {
   } else {
     appMenu.classList.add("app__menu--desktop");
     appMenu.classList.remove("app__menu--mobile");
+    appMenu.classList.add("app__menu--mobile--closed");
     chat.classList.remove("chat--mobile");
   }
 }
@@ -72,7 +78,6 @@ function initialize() {
   const appMenu = document.querySelector(".app__menu");
   appMenu.classList.add("app__menu--mobile--closed");
   if (contact && window.innerWidth > 600) {
-    console.log(1);
     openChat(contact);
   }
 }

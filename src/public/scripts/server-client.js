@@ -60,4 +60,6 @@ async function openChat(contact) {
   setActiveContact(contact);
   document.querySelector(".chat").classList.remove("closed");
   document.querySelector(".chat").classList.add("chat--mobile--open");
+  const appMenu = document.querySelector(".app__menu");
+  appMenu.classList.add("app__menu--mobile--closed");
 }
