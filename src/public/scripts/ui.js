@@ -24,14 +24,14 @@ function setActiveContact(contact) {
 function scrollToBottom() {
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      const chatContent = document.querySelector(".app__chat__content");
+      const chatContent = document.querySelector(".chat__content");
       chatContent.scrollTop = chatContent.scrollHeight;
     });
   });
 }
 function addMessages(chatData) {
   const messages = chatData.chat.messages;
-  const messagesContainer = document.querySelector(".app__chat__content");
+  const messagesContainer = document.querySelector(".chat__content");
   messagesContainer.textContent = "";
   messages.forEach((message, index) => {
     let messageElement = createMessage(
@@ -46,24 +46,24 @@ function addMessages(chatData) {
 function createMessage(message, messageId, senderUsername) {
   const messageDiv = document.createElement("div");
   messageDiv.textContent = message;
-  messageDiv.classList.add("app__chat__content__message");
+  messageDiv.classList.add("chat__content__message");
   messageDiv.setAttribute("message-id", messageId);
   if (username === senderUsername) {
-    messageDiv.classList.add("app__chat__content__message--current");
+    messageDiv.classList.add("chat__content__message--current");
   }
   return messageDiv;
 }
 function adjustClassesToWindowSize() {
   const appMenu = document.querySelector(".app__menu");
-  const appChat = document.querySelector(".app__chat");
+  const chat = document.querySelector(".chat");
   if (window.innerWidth < 600) {
     appMenu.classList.remove("app__menu--desktop");
     appMenu.classList.add("app__menu--mobile");
-    appChat.classList.add("app__chat--mobile");
+    chat.classList.add("chat--mobile");
   } else {
     appMenu.classList.add("app__menu--desktop");
     appMenu.classList.remove("app__menu--mobile");
-    appChat.classList.remove("app__chat--mobile");
+    chat.classList.remove("chat--mobile");
   }
 }
 function initialize() {

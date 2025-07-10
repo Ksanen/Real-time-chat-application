@@ -4,7 +4,7 @@ const username = document
   .getAttribute("data-username");
 
 socket.on("newMessage", ({ message, id, senderUsername }) => {
-  const messagesContainer = document.querySelector(".app__chat__content");
+  const messagesContainer = document.querySelector(".chat__content");
   messagesContainer.appendChild(createMessage(message, id, senderUsername));
   const contactInfoText = document
     .querySelector(".contact--active")
@@ -14,7 +14,7 @@ socket.on("newMessage", ({ message, id, senderUsername }) => {
   scrollToBottom();
 });
 async function sendMessage() {
-  const messageDiv = document.querySelector(".app__chat__footer__message");
+  const messageDiv = document.querySelector(".chat__footer__message");
   const message = messageDiv.value;
   messageDiv.value = "";
   socket.emit("newMessage", message);
@@ -53,11 +53,10 @@ async function openChat(contact) {
     ".contact__info__name"
   ).textContent;
   addMessages(chatData);
-  document.querySelector(".app__chat__header").textContent =
-    secondMemberUsername;
+  document.querySelector(".chat__header").textContent = secondMemberUsername;
   setActiveContact(contact);
-  document.querySelector(".app__chat").classList.remove("closed");
-  document.querySelector(".app__chat").classList.add("app__chat--mobile--open");
+  document.querySelector(".chat").classList.remove("closed");
+  document.querySelector(".chat").classList.add("chat--mobile--open");
   const appMenuMobile = document.querySelector(".app__menu--mobile");
   if (appMenuMobile) {
     appMenuMobile.classList.add("app__menu--mobile--closed");

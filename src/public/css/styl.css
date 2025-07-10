@@ -153,31 +153,31 @@ body {
   text-wrap: nowrap;
 }
 
-.app__chat {
+.chat {
   flex-grow: 1;
   background-color: var(--chatBgColor);
   display: flex;
   flex-direction: column;
 }
-.app__chat--mobile {
+.chat--mobile {
   display: none;
 }
-.app__chat--mobile.app__chat--mobile--open {
+.chat--mobile.chat--mobile--open {
   display: flex;
 }
-.app__chat__header {
+.chat__header {
   background-color: var(--chatHeaderBgColor);
   color: white;
   padding: 10px;
 }
 
-.app__chat__content {
+.chat__content {
   padding: 5px;
   flex-grow: 1;
   overflow-y: auto;
 }
 
-.app__chat__content__message {
+.chat__content__message {
   background-color: var(--messageBgColor);
   border-radius: 12px;
   width: fit-content;
@@ -185,21 +185,21 @@ body {
   padding: 10px;
   margin: 15px 0;
 }
-.app__chat__content__message--current {
+.chat__content__message--current {
   margin-left: auto;
 }
-.app__chat__footer {
+.chat__footer {
   display: flex;
   border-top: 1px solid gray;
 }
 
-.app__chat__footer__message {
+.chat__footer__message {
   padding: 10px;
   flex-grow: 1;
   border: none;
   outline: none;
 }
-.app__chat__footer__send {
+.chat__footer__send {
   width: 100px;
   background-color: var(--sendButtonBgColor);
   color: white;
@@ -207,7 +207,7 @@ body {
   border: none;
   outline: none;
 }
-.app__chat__footer__send:hover {
+.chat__footer__send:hover {
   background-color: #16a085;
 }
 .app__menu__add-contact {

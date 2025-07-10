@@ -1,4 +1,4 @@
-const sendMessageBtb = document.querySelector(".app__chat__footer__send");
+const sendMessageBtb = document.querySelector(".chat__footer__send");
 const addContactBtn = document.querySelector(".app__menu__add-contact");
 const popupCancelBtn = document.querySelector(".popup__btn--cancel");
 const popupAddBtn = document.querySelector(".popup__btn--add");
