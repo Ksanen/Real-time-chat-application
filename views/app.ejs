@@ -24,13 +24,14 @@
         </form>
       </h1>
       <main class="app__content">
-        <div class="app__menu">
+        <div class="app__menu app__menu--desktop">
           <input
             type="button"
             class="app__menu__add-contact"
             value="dodaj kontakt"
           />
           <div class="app__menu__contacts">
+
           <% for(let i=0;i<locals.contacts.length;i++){ %>
           <div class="contact" data-name-of-chat="<%= locals.contacts[i].nameOfChat  %>">
             <div class="contact__img"> <%= locals.contacts[i].username.slice(0,2) %> </div>
@@ -47,6 +48,7 @@
                 </div>
           </div>
           <% } %>
+
           </div>
 
         </div>
@@ -74,12 +76,8 @@
             />
           </form>
         </div>
-        <div class="app__info">
-          Otwórz chat
-        </div>
       </main>
     </div>
-  </body>
   <div class="popup">
     <div class="popup__info">
       <p class="popup__info__title">Wpisz kod</p>
@@ -95,8 +93,8 @@
     </div>
     <div class="popup__error"></div>
   </div>
-  
   <script src="/scripts/server-client.js"></script>
   <script src="/scripts/ui.js"></script>
   <script src="/scripts/eventListeners.js"></script>
+  </body>
 </html>

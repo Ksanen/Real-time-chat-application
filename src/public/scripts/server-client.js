@@ -57,5 +57,9 @@ async function openChat(contact) {
     secondMemberUsername;
   setActiveContact(contact);
   document.querySelector(".app__chat").classList.remove("closed");
-  document.querySelector(".app__info").classList.add("closed");
+  document.querySelector(".app__chat").classList.add("app__chat--mobile--open");
+  const appMenuMobile = document.querySelector(".app__menu--mobile");
+  if (appMenuMobile) {
+    appMenuMobile.classList.add("app__menu--mobile--closed");
+  }
 }

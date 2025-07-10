@@ -14,7 +14,6 @@
   --chatBgColor: #ecf0f1;
   --chatHeaderBgColor: #2980b9;
   --messageBgColor: #ffffff;
-  --appInfoBgColor: #95a5a6;
   --sendButtonBgColor: #1abc9c;
 }
 body {
@@ -108,10 +107,18 @@ body {
   overflow: hidden;
 }
 .app__menu {
-  width: clamp(200px, 30%, 400px);
   padding: 5px;
   background-color: var(--menuBgColor);
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+.app__menu--desktop {
+  width: clamp(200px, 30%, 400px);
+}
+.app__menu--mobile {
+  width: 100%;
+}
+.app__menu--mobile.app__menu--mobile--closed {
+  display: none;
 }
 .contact {
   background-color: var(--contactBgColor);
@@ -152,12 +159,11 @@ body {
   display: flex;
   flex-direction: column;
 }
-.app__info {
-  flex-grow: 1;
+.app__chat--mobile {
+  display: none;
+}
+.app__chat--mobile.app__chat--mobile--open {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--appInfoBgColor);
 }
 .app__chat__header {
   background-color: var(--chatHeaderBgColor);

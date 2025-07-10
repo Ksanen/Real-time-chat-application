@@ -17,7 +17,7 @@ function showErrorMessage(error) {
 function setActiveContact(contact) {
   const activeContacts = document.querySelectorAll(".contact--active");
   activeContacts.forEach((activeContact) => {
-    activeContact.classList.remove(".contact--active");
+    activeContact.classList.remove("contact--active");
   });
   contact.classList.add("contact--active");
 }
@@ -28,10 +28,6 @@ function scrollToBottom() {
       chatContent.scrollTop = chatContent.scrollHeight;
     });
   });
-}
-function closeChat() {
-  document.querySelector(".app__chat").classList.add("closed");
-  document.querySelector(".app__info").classList.remove("closed");
 }
 function addMessages(chatData) {
   const messages = chatData.chat.messages;
@@ -57,3 +53,27 @@ function createMessage(message, messageId, senderUsername) {
   }
   return messageDiv;
 }
+function adjustClassesToWindowSize() {
+  const appMenu = document.querySelector(".app__menu");
+  const appChat = document.querySelector(".app__chat");
+  if (window.innerWidth < 600) {
+    appMenu.classList.remove("app__menu--desktop");
+    appMenu.classList.add("app__menu--mobile");
+    appChat.classList.add("app__chat--mobile");
+  } else {
+    appMenu.classList.add("app__menu--desktop");
+    appMenu.classList.remove("app__menu--mobile");
+    appChat.classList.remove("app__chat--mobile");
+  }
+}
+function initialize() {
+  adjustClassesToWindowSize();
+  const contact = document.querySelector(".contact");
+  const appMenu = document.querySelector(".app__menu");
+  appMenu.classList.add("app__menu--mobile--closed");
+  if (contact && window.innerWidth > 600) {
+    console.log(1);
+    openChat(contact);
+  }
+}
+initialize();

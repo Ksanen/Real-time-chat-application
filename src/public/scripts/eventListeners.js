@@ -15,3 +15,4 @@ popupCancelBtn.addEventListener("click", hidePopUp);
 popupAddBtn.addEventListener("click", addChat);
 addContactBtn.addEventListener("click", showPopup);
 sendMessageBtb.addEventListener("click", sendMessage);
+window.addEventListener("resize", adjustClassesToWindowSize);
