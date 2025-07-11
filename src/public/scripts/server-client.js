@@ -5,7 +5,9 @@ const username = document
 
 socket.on("newMessage", ({ message, id, senderUsername }) => {
   const messagesContainer = document.querySelector(".chat__content");
-  messagesContainer.appendChild(createMessage(message, id, senderUsername));
+  messagesContainer.appendChild(
+    createMessage(message, id, senderUsername, Date.now())
+  );
   const contactInfoText = document
     .querySelector(".contact--active")
     .querySelector(".contact__info__text");
