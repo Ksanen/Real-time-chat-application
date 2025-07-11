@@ -128,7 +128,7 @@ function hideDateOfMessages() {
     messageDate.classList.remove("message__date--show");
   });
 }
-function adjustClassesToWindowSize() {
+function adjustToWindowSize() {
   const app = document.querySelector(".app");
   if (window.innerWidth < windowWidth) {
     app.classList.add("app--mobile");
@@ -136,9 +136,13 @@ function adjustClassesToWindowSize() {
     app.classList.remove("app--mobile");
     app.classList.add("app--mobile--open");
   }
+  const appHeaderAvatar = document.querySelector(".app__header__avatar");
+  appHeaderAvatar.style.width = `${
+    appHeaderAvatar.getBoundingClientRect().height
+  }px`;
 }
 function initialize() {
-  adjustClassesToWindowSize();
+  adjustToWindowSize();
   const contact = document.querySelector(".contact");
   const app = document.querySelector(".app");
   if (!contact) {

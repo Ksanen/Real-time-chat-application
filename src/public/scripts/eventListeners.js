@@ -18,4 +18,4 @@ addContactBtn.addEventListener("click", showPopup);
 sendMessageBtb.addEventListener("click", sendMessage);
 backArrow.addEventListener("click", returnToContacts);
 chatContent.addEventListener("click", (e) => showDateOfMessage(e));
-window.addEventListener("resize", adjustClassesToWindowSize);
+window.addEventListener("resize", adjustToWindowSize);

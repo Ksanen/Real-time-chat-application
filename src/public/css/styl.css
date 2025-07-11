@@ -89,6 +89,7 @@ body {
   padding: 1rem;
   font-size: clamp(1rem, calc(2vw + 1rem), 4rem);
 }
+
 .app__header__logout {
   background-color: var(--logoutButtonBgColor);
   border: none;
@@ -133,7 +134,8 @@ body {
 }
 .contact__avatar,
 .chat__header__avatar,
-.message__content__avatar {
+.message__content__avatar,
+.app__header__avatar {
   background-color: white;
   border-radius: 50%;
   display: flex;
@@ -145,6 +147,10 @@ body {
   color: black;
   font-size: 20px;
   font-weight: bold;
+}
+.app__header__avatar {
+  height: 100%;
+  cursor: pointer;
 }
 .contact__info__name,
 .contact__info__text {
