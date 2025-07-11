@@ -128,6 +128,10 @@ function hideDateOfMessages() {
     messageDate.classList.remove("message__date--show");
   });
 }
+function toggleSettings() {
+  const settings = document.querySelector(".settings");
+  settings.classList.toggle("settings--open");
+}
 function adjustToWindowSize() {
   const app = document.querySelector(".app");
   if (window.innerWidth < windowWidth) {
@@ -141,6 +145,7 @@ function adjustToWindowSize() {
     appHeaderAvatar.getBoundingClientRect().height
   }px`;
 }
+
 function initialize() {
   adjustToWindowSize();
   const contact = document.querySelector(".contact");
