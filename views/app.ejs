@@ -14,14 +14,14 @@
       <div class="layer closed"></div>
       <h1 class="app__header">
         <div class="app__header__dropdown">
-          <div data-username="<%= locals.username %>" class="app__header__avatar"><%= locals.username.slice(0,2) %></div>
           <div class="settings">
-            <div class="option">Twój nick: <%= locals.username %> </div>
-            <div class="option">Test</div>
-            <div class="option">Test</div>
-            <div class="option">Test</div>
-            <div class="option">Test</div>
+            <div class="settings__option">Username: <%= locals.username %> </div>
+            <div class="settings__option">Test</div>
+            <div class="settings__option">Test</div>
+            <div class="settings__option">Test</div>
+            <div class="settings__option">Test</div>
           </div>
+          <div data-username="<%= locals.username %>" class="app__header__avatar"><%= locals.username.slice(0,2) %></div>
         </div>
         <span>kod: <%= locals.code %></span>
         <form method="POST" action="/logout">
