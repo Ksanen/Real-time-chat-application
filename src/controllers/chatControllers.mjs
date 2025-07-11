@@ -102,19 +102,19 @@ export async function getChatInfo(nameOfChat, userId) {
   }
 }
 
-export async function sendMessageToChat(message, nameOfChat, username) {
+export async function sendMessageToChat(messageContent, nameOfChat, username) {
   try {
     const chat = await Chat.findOne({ name: nameOfChat });
     if (!chat) return false;
     const messageToSend = {
-      content: message,
+      content: messageContent,
       date: Date.now(),
       senderUsername: username,
     };
     chat.messages.push(messageToSend);
     await chat.save();
-    const idOfThisMessage = String(chat.messages[chat.messages.length - 1]._id);
-    return idOfThisMessage;
+    const message = String(chat.messages[chat.messages.length - 1]);
+    return message;
   } catch (e) {
     console.log(e);
     return false;

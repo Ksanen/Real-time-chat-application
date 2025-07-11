@@ -42,18 +42,19 @@ function addMessages(chatData) {
     let messageElement = createMessage(
       message.content,
       String(chatData.chat.messages[index]._id),
-      message.senderUsername
+      message.senderUsername,
+      message.date
     );
     messagesContainer.append(messageElement);
   });
   scrollToBottom();
 }
-function createMessage(message, messageId, senderUsername) {
+function createMessage(message, messageId, senderUsername, messageDate) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message");
-  const messageDate = document.createElement("div");
-  messageDate.classList.add("message__date");
-  messageDate.textContent = "Czw. o 21:40";
+  const messageDateDiv = document.createElement("div");
+  messageDateDiv.classList.add("message__date");
+  messageDateDiv.textContent = getDate(messageDate);
 
   const messageContent = document.createElement("div");
   messageContent.textContent = message;
@@ -62,9 +63,43 @@ function createMessage(message, messageId, senderUsername) {
   if (username === senderUsername) {
     messageContent.classList.add("message__content--current");
   }
-  messageDiv.appendChild(messageDate);
+  messageDiv.appendChild(messageDateDiv);
   messageDiv.appendChild(messageContent);
   return messageDiv;
+}
+function getDate(messageDate) {
+  //dateMessage: 13 lis 2024 o 22:19
+  let dateMessage = "";
+  const monthsPolish = [
+    "sty",
+    "lut",
+    "mar",
+    "kwi",
+    "cze",
+    "lip",
+    "sie",
+    "wrz",
+    "paź",
+    "lis",
+    "gru",
+  ];
+  const date = new Date(parseInt(messageDate));
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate().toString().padStart(2, `0`);
+  const hour = date.getHours().toString().padStart(2, `0`);
+  const minute = date.getMinutes().toString().padStart(2, `0`);
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate().toString().padStart(2, `0`);
+  const currentYear = currentDate.getFullYear();
+  if (currentDay !== day) {
+    dateMessage += `${day} ${monthsPolish[month]} `;
+  }
+  if (currentYear !== year) {
+    dateMessage += year + " ";
+  }
+  dateMessage += `o ${hour}:${minute}`;
+  return dateMessage;
 }
 function returnToContacts() {
   document.querySelector(".app").classList.remove("app--mobile--open");
