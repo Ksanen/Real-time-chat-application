@@ -132,7 +132,8 @@ body {
   background-color: hsl(from lightblue h s calc(l - 10));
 }
 .contact__avatar,
-.chat__header__avatar {
+.chat__header__avatar,
+.message__content__avatar {
   background-color: white;
   border-radius: 50%;
   display: flex;
@@ -196,14 +197,22 @@ body {
   height: 50px;
 }
 .message__content {
+  display: flex;
+  gap: 10px;
+}
+.message__content__avatar {
+  height: 40px;
+  width: 40px;
+  font-size: 15px;
+}
+.message__content__text {
   background-color: var(--messageBgColor);
   border-radius: 12px;
   width: fit-content;
   max-width: min(500px, 90%);
   padding: 10px;
-  margin: 0 5px;
 }
-.message__content--current {
+.message__content__text--current {
   margin-left: auto;
 }
 .chat__footer {

@@ -55,14 +55,22 @@ function createMessage(message, messageId, senderUsername, messageDate) {
   const messageDateDiv = document.createElement("div");
   messageDateDiv.classList.add("message__date");
   messageDateDiv.textContent = getDate(messageDate);
-
   const messageContent = document.createElement("div");
-  messageContent.textContent = message;
   messageContent.classList.add("message__content");
-  messageContent.setAttribute("message-id", messageId);
-  if (username === senderUsername) {
-    messageContent.classList.add("message__content--current");
+
+  const messageContentText = document.createElement("div");
+  messageContentText.textContent = message;
+  messageContentText.classList.add("message__content__text");
+  messageContentText.setAttribute("message-id", messageId);
+  if (username !== senderUsername) {
+    const messageContentAvatar = document.createElement("div");
+    messageContentAvatar.classList.add("message__content__avatar");
+    messageContentAvatar.textContent = senderUsername.slice(0, 2);
+    messageContent.appendChild(messageContentAvatar);
+  } else {
+    messageContentText.classList.add("message__content__text--current");
   }
+  messageContent.appendChild(messageContentText);
   messageDiv.appendChild(messageDateDiv);
   messageDiv.appendChild(messageContent);
   return messageDiv;
