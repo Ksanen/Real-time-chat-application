@@ -132,6 +132,12 @@ function toggleSettings() {
   const settings = document.querySelector(".settings");
   settings.classList.toggle("settings--open");
 }
+function hideSettings(e) {
+  const settings = e.target.closest(".settings");
+  const avatar = e.target.closest(".app__header__avatar");
+  if (settings || avatar) return;
+  document.querySelector(".settings").classList.remove("settings--open");
+}
 function adjustToWindowSize() {
   const app = document.querySelector(".app");
   if (window.innerWidth < windowWidth) {

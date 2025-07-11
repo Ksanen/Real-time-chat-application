@@ -21,3 +21,4 @@ backArrow.addEventListener("click", returnToContacts);
 chatContent.addEventListener("click", (e) => showDateOfMessage(e));
 appHeaderAvatar.addEventListener("click", toggleSettings);
 window.addEventListener("resize", adjustToWindowSize);
+window.addEventListener("click", (e) => hideSettings(e));
