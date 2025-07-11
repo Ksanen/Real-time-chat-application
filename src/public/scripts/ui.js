@@ -1,3 +1,5 @@
+const windowWidth = 600;
+
 function showPopup() {
   document.querySelector(".popup").classList.add("popup--show");
   document.querySelector(".layer").classList.remove("closed");
@@ -15,11 +17,14 @@ function showErrorMessage(error) {
   document.querySelector(".popup__error").textContent = error;
 }
 function setActiveContact(contact) {
+  disactivateContacts();
+  contact.classList.add("contact--active");
+}
+function disactivateContacts() {
   const activeContacts = document.querySelectorAll(".contact--active");
   activeContacts.forEach((activeContact) => {
     activeContact.classList.remove("contact--active");
   });
-  contact.classList.add("contact--active");
 }
 function scrollToBottom() {
   requestAnimationFrame(() => {
@@ -55,10 +60,11 @@ function createMessage(message, messageId, senderUsername) {
 }
 function returnToContacts() {
   document.querySelector(".app").classList.remove("app--mobile--open");
+  disactivateContacts();
 }
 function adjustClassesToWindowSize() {
   const app = document.querySelector(".app");
-  if (window.innerWidth < 600) {
+  if (window.innerWidth < windowWidth) {
     app.classList.add("app--mobile");
   } else {
     app.classList.remove("app--mobile");
@@ -71,7 +77,7 @@ function initialize() {
   const app = document.querySelector(".app");
   if (!contact) {
     app.classList.add("app--no-contacts");
-  } else if (contact && window.innerWidth > 600) {
+  } else if (contact && window.innerWidth > windowWidth) {
     openChat(contact);
   }
 }
