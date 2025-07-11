@@ -50,17 +50,38 @@ function addMessages(chatData) {
 }
 function createMessage(message, messageId, senderUsername) {
   const messageDiv = document.createElement("div");
-  messageDiv.textContent = message;
-  messageDiv.classList.add("chat__content__message");
-  messageDiv.setAttribute("message-id", messageId);
+  messageDiv.classList.add("message");
+  const messageDate = document.createElement("div");
+  messageDate.classList.add("message__date");
+  messageDate.textContent = "Czw. o 21:40";
+
+  const messageContent = document.createElement("div");
+  messageContent.textContent = message;
+  messageContent.classList.add("message__content");
+  messageContent.setAttribute("message-id", messageId);
   if (username === senderUsername) {
-    messageDiv.classList.add("chat__content__message--current");
+    messageContent.classList.add("message__content--current");
   }
+  messageDiv.appendChild(messageDate);
+  messageDiv.appendChild(messageContent);
   return messageDiv;
 }
 function returnToContacts() {
   document.querySelector(".app").classList.remove("app--mobile--open");
   disactivateContacts();
+}
+function showDateOfMessage(e) {
+  const message = e.target.closest(".message");
+  if (!message) return;
+  hideDateOfMessages();
+  const messageDate = message.querySelector(".message__date");
+  messageDate.classList.add("message__date--show");
+}
+function hideDateOfMessages() {
+  const activeMessagesDate = document.querySelectorAll(".message__date--show");
+  activeMessagesDate.forEach((messageDate) => {
+    messageDate.classList.remove("message__date--show");
+  });
 }
 function adjustClassesToWindowSize() {
   const app = document.querySelector(".app");
