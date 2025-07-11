@@ -106,10 +106,10 @@ function returnToContacts() {
   disactivateContacts();
 }
 function showDateOfMessage(e) {
-  const message = e.target.closest(".message");
-  if (!message) return;
+  const messageContent = e.target.closest(".message__content");
+  if (!messageContent) return;
   hideDateOfMessages();
-  const messageDate = message.querySelector(".message__date");
+  const messageDate = messageContent.parentNode.querySelector(".message__date");
   messageDate.classList.add("message__date--show");
 }
 function hideDateOfMessages() {
