@@ -54,30 +54,24 @@ function createMessage(message, messageId, senderUsername) {
   return messageDiv;
 }
 function returnToContacts() {
-  const appMenu = document.querySelector(".app__menu");
-  appMenu.classList.remove("app__menu--mobile--closed");
+  document.querySelector(".app").classList.remove("app--mobile--open");
 }
 function adjustClassesToWindowSize() {
-  const appMenu = document.querySelector(".app__menu");
-  const chat = document.querySelector(".chat");
-
+  const app = document.querySelector(".app");
   if (window.innerWidth < 600) {
-    appMenu.classList.remove("app__menu--desktop");
-    appMenu.classList.add("app__menu--mobile");
-    chat.classList.add("chat--mobile");
+    app.classList.add("app--mobile");
   } else {
-    appMenu.classList.add("app__menu--desktop");
-    appMenu.classList.remove("app__menu--mobile");
-    appMenu.classList.add("app__menu--mobile--closed");
-    chat.classList.remove("chat--mobile");
+    app.classList.remove("app--mobile");
+    app.classList.add("app--mobile--open");
   }
 }
 function initialize() {
   adjustClassesToWindowSize();
   const contact = document.querySelector(".contact");
-  const appMenu = document.querySelector(".app__menu");
-  appMenu.classList.add("app__menu--mobile--closed");
-  if (contact && window.innerWidth > 600) {
+  const app = document.querySelector(".app");
+  if (!contact) {
+    app.classList.add("app--no-contacts");
+  } else if (contact && window.innerWidth > 600) {
     openChat(contact);
   }
 }

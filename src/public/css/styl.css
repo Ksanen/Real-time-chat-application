@@ -80,6 +80,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 .app__header {
   display: flex;
   justify-content: space-between;
@@ -111,15 +112,7 @@ body {
   background-color: var(--menuBgColor);
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
   flex-shrink: 0;
-}
-.app__menu--desktop {
   width: 300px;
-}
-.app__menu--mobile {
-  width: 100%;
-}
-.app__menu--mobile.app__menu--mobile--closed {
-  display: none;
 }
 .contact {
   background-color: var(--contactBgColor);
@@ -163,13 +156,6 @@ body {
   background-color: var(--chatBgColor);
   display: flex;
   flex-direction: column;
-}
-.chat--mobile,
-.chat--closed {
-  display: none;
-}
-.chat--mobile.chat--mobile--open {
-  display: flex;
 }
 .chat__header {
   background-color: var(--chatHeaderBgColor);
@@ -308,6 +294,24 @@ body {
 }
 .closed {
   display: none;
+}
+.app--mobile:not(.app--no-contacts) .app__menu {
+  width: 100%;
+}
+.app--mobile:not(.app--no-contacts) .chat {
+  display: none;
+}
+.app--mobile:not(.app--no-contacts).app--mobile--open .app__menu {
+  display: none;
+}
+.app--mobile:not(.app--no-contacts).app--mobile--open .chat {
+  display: flex;
+}
+.app--no-contacts .chat {
+  display: none;
+}
+.app--no-contacts .app__menu {
+  width: 100%;
 }
 @media only screen and (max-width: 600px) {
   .chat__header__back-arrow {
