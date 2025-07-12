@@ -48,7 +48,7 @@
                 <p class="contact__info__name"><%= locals.contacts[i].username %></p>
                 <p class="contact__info__text">
                   <% if(locals.contacts[i].lastMessage) { %>
-                      <% if(locals.contacts[i].sender===locals.username){%>
+                      <% if(locals.contacts[i].senderUsername===locals.username){%>
                         ty:
                       <% }%>
                       <%= locals.contacts[i].lastMessage %>

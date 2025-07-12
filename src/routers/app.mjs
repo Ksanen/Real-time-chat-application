@@ -21,10 +21,7 @@ router.get("/app", async (req, res) => {
 router.post("/app/openChat", async (req, res) => {
   try {
     if (!req.user) return res.redirect("/");
-    const chatInfo = await getChatInfo(
-      req.body.nameOfChat,
-      String(req.user.id)
-    );
+    const chatInfo = await getChatInfo(req.body.nameOfChat, req.user.id);
     if (!chatInfo) {
       return res.json({
         success: false,

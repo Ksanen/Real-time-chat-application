@@ -69,16 +69,16 @@ export async function getContactsInfo(id) {
       const secondMember = await User.findById(idOfSecondMember);
       const usernameOfSecondMember = secondMember.username;
       const lastMessageObject = chat.messages[chat.messages.length - 1];
-      let lastMessage, sender;
+      let lastMessage, senderUsername;
       if (lastMessageObject) {
         lastMessage = lastMessageObject.content;
-        sender = lastMessageObject.senderUsername;
+        senderUsername = lastMessageObject.senderUsername;
       }
       const contact = {
         username: usernameOfSecondMember,
         nameOfChat: chat.name,
         lastMessage: lastMessage || false,
-        sender: sender || false,
+        senderUsername: senderUsername || false,
       };
       contacts.push(contact);
     }
@@ -93,7 +93,9 @@ export async function getChatInfo(nameOfChat, userId) {
   try {
     const chat = await Chat.findOne({ name: nameOfChat }, { _id: 0, __v: 0 });
     if (!chat) return false;
-    const userIsMemberOfChat = chat.members.find((member) => member === userId);
+    const userIsMemberOfChat = chat.members.find(
+      (member) => member === String(userId)
+    );
     if (!userIsMemberOfChat) return false;
     return chat;
   } catch (e) {
@@ -102,14 +104,18 @@ export async function getChatInfo(nameOfChat, userId) {
   }
 }
 
-export async function sendMessageToChat(messageContent, nameOfChat, username) {
+export async function sendMessageToChat(
+  messageContent,
+  nameOfChat,
+  senderUsername
+) {
   try {
     const chat = await Chat.findOne({ name: nameOfChat });
     if (!chat) return false;
     const messageToSend = {
       content: messageContent,
       date: Date.now(),
-      senderUsername: username,
+      senderUsername: senderUsername,
     };
     chat.messages.push(messageToSend);
     await chat.save();
