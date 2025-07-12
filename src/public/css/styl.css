@@ -116,6 +116,12 @@ body {
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
   flex-shrink: 0;
   width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+.app__menu__contacts {
+  overflow: auto;
+  flex-grow: 1;
 }
 .contact {
   background-color: var(--contactBgColor);
@@ -336,6 +342,7 @@ body {
   font-size: 20px;
   border-radius: 12px;
   display: none;
+  overflow: hidden;
 }
 .settings--open + .app__header__avatar::after {
   content: "";
@@ -352,6 +359,12 @@ body {
 }
 .settings__option {
   padding: 5px;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+.settings__option:hover {
+  background-color: var(--addContactBgColor);
+  color: White;
 }
 .closed {
   display: none;
