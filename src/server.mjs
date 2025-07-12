@@ -8,9 +8,8 @@ import { fileURLToPath } from "url";
 import path from "path";
 import { Server } from "socket.io";
 import { createServer } from "http";
-import { sendMessageToChat } from "./controllers/chatControllers.mjs";
-import User from "./models/userSchema.mjs";
 import registerSockets from "./services/sockets/index.mjs";
+import MongoStore from "connect-mongo";
 dotenv.config();
 const app = express();
 const httpServer = createServer(app);
@@ -22,6 +21,9 @@ const sessionMiddleware = session({
   cookie: {
     maxAge: 1000 * 60 * 5,
   },
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO,
+  }),
 });
 io.engine.use(sessionMiddleware);
 registerSockets(io);
