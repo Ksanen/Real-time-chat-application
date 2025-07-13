@@ -137,6 +137,15 @@ function hideSettings(e) {
   if (settings || avatar) return;
   document.querySelector(".settings").classList.remove("settings--open");
 }
+function selectAvatar(e) {
+  const avatar = e.target.closest(".avatar");
+  if (!avatar) return;
+  const selectedAvatars = document.querySelectorAll(".avatar--selected");
+  selectedAvatars.forEach((selectedAvatar) =>
+    selectedAvatar.classList.remove("selected--avatar")
+  );
+  avatar.classList.add("avatar--selected");
+}
 function adjustToWindowSize() {
   const app = document.querySelector(".app");
   if (window.innerWidth < windowWidth) {

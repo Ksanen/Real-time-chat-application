@@ -140,10 +140,10 @@ body {
 .contact:hover {
   background-color: hsl(from lightblue h s calc(l - 10));
 }
-.contact__avatar,
 .chat__header__avatar,
 .message__content__avatar,
-.app__header__avatar {
+.app__header__avatar,
+.avatar {
   background-color: white;
   border-radius: 50%;
   display: flex;
@@ -160,7 +160,9 @@ body {
   height: 100%;
   cursor: pointer;
 }
-
+.avatar--select {
+  border: 1px solid black;
+}
 .contact__info__name,
 .contact__info__text {
   color: white;
@@ -304,6 +306,21 @@ body {
   display: flex;
   justify-content: center;
   gap: 10px;
+}
+.popup__avatars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 50px);
+  gap: 10px;
+  justify-content: space-around;
+  max-height: 200px;
+  overflow-x: auto;
+  padding: 10px;
+}
+.avatar:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.avatar--selected {
+  border: 1px solid red;
 }
 .popup__btn {
   padding: 10px;

@@ -6,6 +6,7 @@ const popupContact = document.querySelector(".app__menu__contacts");
 const backArrow = document.querySelector(".chat__header__back-arrow");
 const chatContent = document.querySelector(".chat__content");
 const appHeaderAvatar = document.querySelector(".app__header__avatar");
+const popupAvatars = document.querySelector(".popup__avatars");
 popupContact.addEventListener("click", (e) => {
   const contact = e.target.closest(".contact");
   if (contact) {
@@ -20,5 +21,6 @@ sendMessageBtb.addEventListener("click", sendMessage);
 backArrow.addEventListener("click", returnToContacts);
 chatContent.addEventListener("click", (e) => showDateOfMessage(e));
 appHeaderAvatar.addEventListener("click", toggleSettings);
+popupAvatars.addEventListener("click", (e) => selectAvatar(e));
 window.addEventListener("resize", adjustToWindowSize);
 window.addEventListener("click", (e) => hideSettings(e));
