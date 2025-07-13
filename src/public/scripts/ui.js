@@ -142,7 +142,7 @@ function selectAvatar(e) {
   if (!avatar) return;
   const selectedAvatars = document.querySelectorAll(".avatar--selected");
   selectedAvatars.forEach((selectedAvatar) =>
-    selectedAvatar.classList.remove("selected--avatar")
+    selectedAvatar.classList.remove("avatar--selected")
   );
   avatar.classList.add("avatar--selected");
 }
