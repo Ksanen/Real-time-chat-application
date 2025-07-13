@@ -1,3 +1,4 @@
+const app = document.querySelector(".app");
 const sendMessageBtb = document.querySelector(".chat__footer__send");
 const addContactBtn = document.querySelector(".app__menu__add-contact");
 const popupCancelBtn = document.querySelector(".popup__btn--cancel");
@@ -32,4 +33,4 @@ appHeaderAvatar.addEventListener("click", toggleSettings);
 popupAvatars.addEventListener("click", (e) => selectAvatar(e));
 changeAvatarOption.addEventListener("click", () => showPopup("avatars"));
 window.addEventListener("resize", adjustToWindowSize);
-window.addEventListener("click", (e) => hideSettings(e));
+app.addEventListener("click", (e) => hideSettings(e));
