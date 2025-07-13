@@ -16,7 +16,7 @@
         <div class="app__header__dropdown">
           <div class="settings">
             <div class="settings__option">Username: <%= locals.username %> </div>
-            <div class="settings__option">change avatar</div>
+            <div class="settings__option" id="changeAvatar">change avatar</div>
           </div>
           <div data-username="<%= locals.username %>" class="app__header__avatar"><%= locals.username.slice(0,2) %></div>
         </div>
@@ -91,7 +91,7 @@
         </div>
       </main>
     </div>
-  <div class="popup popup--code">
+  <div class="popup popup--code" data-type-of-popup="code">
     <div class="popup__info">
       <h3 class="popup__info__title">Wpisz kod</h3>
       <input type="text" name="code" class="popup__info__code" />
@@ -106,7 +106,7 @@
     </div>
     <div class="popup__error"></div>
   </div>
-  <div class="popup">
+  <div class="popup popup--avatars"  data-type-of-popup="avatars">
     <div class="popup__info">
       <h3 class="popup__info__title">Wybierz avatar</h3>
     </div>
