@@ -16,7 +16,7 @@ popupContact.addEventListener("click", (e) => {
 
 popupCancelBtn.addEventListener("click", hidePopUp);
 popupAddBtn.addEventListener("click", addChat);
-addContactBtn.addEventListener("click", showPopup);
+addContactBtn.addEventListener("click", () => showPopup("code"));
 sendMessageBtb.addEventListener("click", sendMessage);
 backArrow.addEventListener("click", returnToContacts);
 chatContent.addEventListener("click", (e) => showDateOfMessage(e));

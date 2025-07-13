@@ -1,11 +1,11 @@
 const windowWidth = 600;
 
-function showPopup() {
-  document.querySelector(".popup").classList.add("popup--show");
+function showPopup(type) {
+  document.querySelector(`.popup--${type}`).classList.add("popup--show");
   document.querySelector(".layer").classList.remove("closed");
 }
-function hidePopUp() {
-  document.querySelector(".popup").classList.remove("popup--show");
+function hidePopUp(type) {
+  document.querySelector(`.popup--${type}`).classList.remove("popup--show");
   document.querySelector(".layer").classList.add("closed");
   document.querySelector(".popup__info__code").value = "";
   clearErrorMessage();
@@ -145,6 +145,14 @@ function selectAvatar(e) {
     selectedAvatar.classList.remove("avatar--selected")
   );
   avatar.classList.add("avatar--selected");
+}
+function generateDefaultAvatarsToSelect(defaultAvatars) {
+  const popupAvatars = document.querySelector(".popup__avatars");
+  defaultAvatars.forEach((avatar) => {
+    const avatarImg = document.createElement("img");
+    avatarImg.src = avatar;
+    popupAvatars.appendChild(avatarImg);
+  });
 }
 function adjustToWindowSize() {
   const app = document.querySelector(".app");
