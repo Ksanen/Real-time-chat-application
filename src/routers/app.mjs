@@ -18,26 +18,38 @@ router.get("/app", checkIfSessionIsActive, async (req, res) => {
     });
   } catch (e) {
     console.log("error");
+    return res.status(500);
   }
 });
 
-router.post("/app/openChat", checkIfSessionIsActive, async (req, res) => {
-  try {
-    const chatInfo = await getChatInfo(req.body.nameOfChat, req.user.id);
-    if (!chatInfo) {
-      return res.json({
-        success: false,
+router.post(
+  "/app/openChat",
+  checkIfSessionIsActive,
+  body("nameOfChat").isString().withMessage("name of chat must be a string"),
+  async (req, res) => {
+    try {
+      const result = validationResult(req);
+      if (!result.isEmpty())
+        return res.status(400).json({
+          success: false,
+          errors: result.array(),
+        });
+      const chatInfo = await getChatInfo(req.body.nameOfChat, req.user.id);
+      if (!chatInfo) {
+        return res.status(404).json({
+          success: false,
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        chat: chatInfo,
       });
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ success: false });
     }
-    return res.json({
-      success: true,
-      chat: chatInfo,
-    });
-  } catch (e) {
-    console.log(e);
-    return res.json({ success: false });
   }
-});
+);
 router.post(
   "/app/addChat",
   checkIfSessionIsActive,
@@ -46,17 +58,21 @@ router.post(
     try {
       const result = validationResult(req);
       if (!result.isEmpty()) {
-        return res.json({ success: false, error: result.array()[0].msg });
+        return res
+          .status(400)
+          .json({ success: false, error: result.array()[0].msg });
       }
       const code = req.body.code;
       const createChatResult = await createChat(req.user.id, code);
       if (!createChatResult.status) {
-        return res.json({ success: false, error: createChatResult.error });
+        return res
+          .status(404)
+          .json({ success: false, error: createChatResult.error });
       }
-      return res.json({ success: true });
+      return res.status(200).json({ success: true });
     } catch (e) {
       console.log(e);
-      return res.json({ success: false });
+      return res.status(500).json({ success: false });
     }
   }
 );
