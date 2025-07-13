@@ -1,26 +1,28 @@
 import { Router } from "express";
-import { ExpressValidator, body, validationResult } from "express-validator";
+import checkIfSessionIsActive from "../middlewares/checkIfSessionIsActive.mjs";
+import { body, validationResult } from "express-validator";
 import {
   createChat,
   getChatInfo,
   getContactsInfo,
-  sendMessageToChat,
 } from "../controllers/chatControllers.mjs";
 const router = Router();
 
-router.get("/app", async (req, res) => {
-  if (!req.user) return res.redirect("/");
-  const contactsInfo = await getContactsInfo(req.user.id);
-  return res.render("app", {
-    username: req.user.username,
-    code: req.user.code,
-    contacts: contactsInfo,
-  });
+router.get("/app", checkIfSessionIsActive, async (req, res) => {
+  try {
+    const contactsInfo = await getContactsInfo(req.user.id);
+    return res.render("app", {
+      username: req.user.username,
+      code: req.user.code,
+      contacts: contactsInfo,
+    });
+  } catch (e) {
+    console.log("error");
+  }
 });
 
-router.post("/app/openChat", async (req, res) => {
+router.post("/app/openChat", checkIfSessionIsActive, async (req, res) => {
   try {
-    if (!req.user) return res.redirect("/");
     const chatInfo = await getChatInfo(req.body.nameOfChat, req.user.id);
     if (!chatInfo) {
       return res.json({
@@ -38,10 +40,10 @@ router.post("/app/openChat", async (req, res) => {
 });
 router.post(
   "/app/addChat",
+  checkIfSessionIsActive,
   body("code").notEmpty().withMessage("kod nie może być pusty"),
   async (req, res) => {
     try {
-      if (!req.user) return res.redirect("/");
       const result = validationResult(req);
       if (!result.isEmpty()) {
         return res.json({ success: false, error: result.array()[0].msg });
