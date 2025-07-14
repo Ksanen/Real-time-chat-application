@@ -57,12 +57,11 @@ export async function createChat(creatorId, codeOfSecondMember) {
 }
 export async function getChatInfo(nameOfChat, userId) {
   try {
-    const chat = await Chat.findOne({ name: nameOfChat }, { _id: 0, __v: 0 });
+    let chat = await Chat.findOne({ name: nameOfChat }, { _id: 0, __v: 0 });
     if (!chat) return false;
-    const userIsMemberOfChat = chat.members.find(
-      (member) => member === String(userId)
-    );
+    const userIsMemberOfChat = chat.members.find((member) => member === userId);
     if (!userIsMemberOfChat) return false;
+
     return chat;
   } catch (e) {
     console.log(e);

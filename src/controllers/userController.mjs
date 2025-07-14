@@ -10,7 +10,7 @@ export const createUser = async function (username, password) {
       password: hash,
       code: await generateUniqueCode(username),
       chats: [],
-      avatar: "",
+      avatarSrc: "",
     });
     return true;
   } catch (e) {

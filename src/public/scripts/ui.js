@@ -45,13 +45,20 @@ function addMessages(chatData) {
       message.content,
       String(chatData.chat.messages[index]._id),
       message.senderUsername,
-      message.date
+      message.date,
+      chatData.senderAvatar
     );
     messagesContainer.append(messageElement);
   });
   scrollToBottom();
 }
-function createMessage(message, messageId, senderUsername, messageDate) {
+function createMessage(
+  message,
+  messageId,
+  senderUsername,
+  messageDate,
+  avatarSrc
+) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message");
   const messageDateDiv = document.createElement("div");
@@ -59,15 +66,18 @@ function createMessage(message, messageId, senderUsername, messageDate) {
   messageDateDiv.textContent = getDate(messageDate);
   const messageContent = document.createElement("div");
   messageContent.classList.add("message__content");
-
   const messageContentText = document.createElement("div");
   messageContentText.textContent = message;
   messageContentText.classList.add("message__content__text");
   messageContentText.setAttribute("message-id", messageId);
-  if (username !== senderUsername) {
+  if (yourUsername !== senderUsername) {
     const messageContentAvatar = document.createElement("div");
     messageContentAvatar.classList.add("message__content__avatar");
-    messageContentAvatar.textContent = senderUsername.slice(0, 2);
+    if (avatarSrc === "") {
+      messageContentAvatar.textContent = senderUsername.slice(0, 2);
+    } else {
+      messageContentAvatar.style.backgroundImage = `url('${avatarSrc}')`;
+    }
     messageContent.appendChild(messageContentAvatar);
   } else {
     messageContentText.classList.add("message__content__text--current");
@@ -160,9 +170,24 @@ function generateDefaultAvatars(defaultAvatars) {
     });
   }
 }
-function setAvatar(src) {
+function setYourAvatar(src) {
   const headerAvatar = document.querySelector(".app__header__avatar");
   headerAvatar.style.backgroundImage = src === "" ? "" : `URL("${src}")`;
+  headerAvatar.textContent = src === "" ? yourUsername.slice(0, 2) : "";
+}
+function adjustAvatarsInChat(avatar, memberUsername) {
+  const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
+  const contactActive = document.querySelector(".contact--active");
+  const contactAvatar = contactActive.querySelector(".avatar");
+  chatHeaderAvatar.style.backgroundImage = `url(${avatar})`;
+  contactAvatar.style.backgroundImage = `url(${avatar})`;
+  if (avatar === "") {
+    chatHeaderAvatar.textContent = memberUsername.slice(0, 2);
+    contactAvatar.textContent = memberUsername.slice(0, 2);
+  } else {
+    chatHeaderAvatar.textContent = "";
+    contactAvatar.textContent = "";
+  }
 }
 function setCorrectAvatarInAvatarsPopup() {
   const avatarsInPopup = document.querySelectorAll(".avatar--select");

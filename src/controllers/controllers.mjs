@@ -25,9 +25,10 @@ export async function getContactsInfo(id) {
     for (let i = 0; i < chats.length; i++) {
       const chat = await Chat.findOne({ name: chats[i] });
       if (!chat) return false;
-      const idOfSecondMember = chat.members.find((memberId) => memberId != id);
-      const secondMember = await User.findById(idOfSecondMember);
-      const usernameOfSecondMember = secondMember.username;
+      const idOfMember = chat.members.find((memberId) => memberId != id);
+      const secondMember = await User.findById(idOfMember);
+      const usernameOfMember = secondMember.username;
+      const avatarSrcOfMember = secondMember.avatarSrc;
       const lastMessageObject = chat.messages[chat.messages.length - 1];
       let lastMessage, senderUsername;
       if (lastMessageObject) {
@@ -35,10 +36,11 @@ export async function getContactsInfo(id) {
         senderUsername = lastMessageObject.senderUsername;
       }
       const contact = {
-        username: usernameOfSecondMember,
+        username: usernameOfMember,
         nameOfChat: chat.name,
         lastMessage: lastMessage || false,
         senderUsername: senderUsername || false,
+        avatarSrc: avatarSrcOfMember,
       };
       contacts.push(contact);
     }

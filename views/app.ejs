@@ -17,7 +17,11 @@
             <div class="settings__option">Username: <%= locals.username %> </div>
             <div class="settings__option" id="changeAvatar">change avatar</div>
           </div>
-          <div data-username="<%= locals.username %>" class="app__header__avatar"><%= locals.username.slice(0,2) %></div>
+          <div data-username="<%= locals.username %>" class="app__header__avatar">
+            <% if(locals.avatarSrc===""){ %>
+               <%= locals.username.slice(0,2) %>
+            <% } %>
+          </div>
         </div>
         <span>kod: <%= locals.code %></span>
         <form method="POST" action="/logout">
@@ -39,7 +43,16 @@
 
           <% for(let i=0;i<locals.contacts.length;i++){ %>
           <div class="contact" data-name-of-chat="<%= locals.contacts[i].nameOfChat  %>">
-            <div class="avatar"> <%= locals.contacts[i].username.slice(0,2) %> </div>
+            <% if(locals.contacts[i].avatarSrc===""){ %>
+            <div class="avatar" style="background-image:''"> 
+            <% } else{%>
+            <div class="avatar" style="background-image: url('<%=locals.contacts[i].avatarSrc%>');"> 
+            <% }%>
+            
+              <% if(locals.contacts[i].avatarSrc===""){ %>
+                <%=locals.contacts[i].username.slice(0,2) %>
+                <% } %>
+            </div>
               <div>
                 <p class="contact__info__name"><%= locals.contacts[i].username %></p>
                 <p class="contact__info__text">
@@ -125,11 +138,13 @@
   <script src="/scripts/ui.js"></script>
   <script src="/scripts/eventListeners.js"></script>
   <script>
-    const defaultAvatarsToGenerate=  `<%-JSON.stringify(locals.defaultAvatars) %>`;
-    generateDefaultAvatars(defaultAvatarsToGenerate);
-    const avatarSrc=`<%- JSON.parse( JSON.stringify(locals.avatarSrc)) %>`;
-    setAvatar(avatarSrc);
-    initialize();
+      const defaultAvatarsToGenerate=  `<%-JSON.stringify(locals.defaultAvatars) %>`;
+      const avatarSrc=`<%- JSON.parse( JSON.stringify(locals.avatarSrc)) %>`;
+      let contacts=`<%-  JSON.stringify(locals.contacts) %>`;
+      contacts=JSON.parse(contacts);
+      generateDefaultAvatars(defaultAvatarsToGenerate);
+      setYourAvatar(avatarSrc);
+      initialize();
   </script>
 
   </body>

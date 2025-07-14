@@ -1,19 +1,53 @@
 const socket = io();
-const username = document
+const yourUsername = document
   .querySelector("[data-username]")
   .getAttribute("data-username");
 
-socket.on("newMessage", ({ message, id, senderUsername }) => {
+socket.on("newMessage", ({ message, id, senderUsername, avatarSrc }) => {
   const messagesContainer = document.querySelector(".chat__content");
   messagesContainer.appendChild(
-    createMessage(message, id, senderUsername, Date.now())
+    createMessage(message, id, senderUsername, Date.now(), avatarSrc)
   );
   const contactInfoText = document
     .querySelector(".contact--active")
     .querySelector(".contact__info__text");
-  const text = senderUsername === username ? `ty: ${message}` : `${message}`;
+  const text =
+    senderUsername === yourUsername ? `ty: ${message}` : `${message}`;
   contactInfoText.textContent = text;
   scrollToBottom();
+});
+socket.on("changeAvatar", ({ avatar, username }) => {
+  const activeContact = document.querySelector(".contact--active");
+  const contactAvatar = activeContact.querySelector(".avatar");
+  const chatHeaderUsernameDiv = document.querySelector(
+    ".chat__header__username"
+  );
+  if (chatHeaderUsernameDiv.textContent !== username) return;
+  if (yourUsername === username) return;
+  console.log(yourUsername, username);
+  const messageContentAvatars = document.querySelectorAll(
+    ".message__content__avatar"
+  );
+  const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
+
+  messageContentAvatars.forEach((messageAvatar) => {
+    if (avatar === "") {
+      messageAvatar.textContent = username.slice(0, 2);
+      messageAvatar.style.backgroundImage = ``;
+    } else {
+      messageAvatar.textContent = "";
+      messageAvatar.style.backgroundImage = `url(${avatar})`;
+    }
+  });
+  chatHeaderAvatar.style.backgroundImage = `url(${avatar})`;
+  contactAvatar.style.backgroundImage = `url(${avatar})`;
+  if (avatar === "") {
+    contactAvatar.textContent = username.slice(0, 2);
+    chatHeaderAvatar.textContent = username.slice(0, 2);
+  } else {
+    chatHeaderAvatar.textContent = "";
+    contactAvatar.textContent = "";
+  }
 });
 async function sendMessage() {
   const messageDiv = document.querySelector(".chat__footer__message");
@@ -49,17 +83,17 @@ async function openChat(contact) {
   });
   const chatData = await response.json();
   if (!chatData.success) return;
+  const { senderAvatar } = chatData;
   socket.emit("join-room", nameOfChat);
-  const secondMemberUsername = contact.querySelector(
+  const memberUsername = contact.querySelector(
     ".contact__info__name"
   ).textContent;
-  addMessages(chatData);
-  document.querySelector(".chat__header__username").textContent =
-    secondMemberUsername;
-  document.querySelector(".chat__header__avatar").textContent =
-    secondMemberUsername.slice(0, 2);
-  setActiveContact(contact);
   document.querySelector(".app").classList.add("app--mobile--open");
+  document.querySelector(".chat__header__username").textContent =
+    memberUsername;
+  addMessages(chatData);
+  setActiveContact(contact);
+  adjustAvatarsInChat(senderAvatar, memberUsername);
 }
 async function changeAvatar() {
   try {
@@ -73,7 +107,11 @@ async function changeAvatar() {
     });
     const result = await response.json();
     if (!result) return alert("error");
-    setAvatar(avatarSrc);
+    socket.emit("changeAvatar", {
+      avatar: avatarSrc,
+      username: yourUsername,
+    });
+    setYourAvatar(avatarSrc);
   } catch (e) {
     console.log(e);
   }

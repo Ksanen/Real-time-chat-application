@@ -17,6 +17,7 @@ export default (socket, io) => {
         message: newMessage,
         messageId: String(message._id),
         senderUsername: user.username,
+        avatarSrc: user.avatarSrc,
         date: message.date,
       });
     } catch (e) {

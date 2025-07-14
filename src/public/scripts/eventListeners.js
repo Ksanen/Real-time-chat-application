@@ -14,7 +14,6 @@ popups.forEach((popup) => {
   popup.addEventListener("click", (e) => {
     const popupCancelBtn = e.target.closest(".popup__btn--cancel");
     if (popupCancelBtn) {
-      console.log("close");
       hidePopUp(popupCancelBtn);
       setCorrectAvatarInAvatarsPopup();
       return;

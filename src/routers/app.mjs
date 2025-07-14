@@ -7,6 +7,7 @@ import {
   getContactsInfo,
   getDefaultAvatars,
 } from "../controllers/controllers.mjs";
+import User from "../models/userSchema.mjs";
 const router = Router();
 
 router.get("/app", checkIfSessionIsActive, async (req, res) => {
@@ -65,14 +66,20 @@ router.post(
           errors: result.array(),
         });
       const chatInfo = await getChatInfo(req.body.nameOfChat, req.user.id);
-      if (!chatInfo) {
+      const senderId = chatInfo.members.find(
+        (member) => member !== req.user.id
+      );
+      const sender = await User.findById(senderId);
+      if (!chatInfo || !sender) {
         return res.status(404).json({
           success: false,
         });
       }
+
       return res.status(200).json({
         success: true,
         chat: chatInfo,
+        senderAvatar: sender.avatarSrc,
       });
     } catch (e) {
       console.log(e);
