@@ -101,7 +101,7 @@
         value="anuluj"
         class="popup__btn popup__btn--cancel"
       />
-      <input type="button" value="dodaj" class="popup__btn popup__btn--add" />
+      <input type="button" value="dodaj" class="popup__btn popup__btn--add" data-popup-btn-option="addContact" />
     </div>
     <div class="popup__error"></div>
   </div>
@@ -110,8 +110,7 @@
       <h3 class="popup__info__title">Wybierz avatar</h3>
     </div>
     <div class="popup__avatars">
-      <div class="avatar avatar--select"></div>
-      
+      <div class="avatar avatar--select" data-id-of-avatar="default"><%= username.slice(0,2) %></div>
     </div>
     <div class="popup__buttons">
       <input
@@ -119,11 +118,19 @@
          value="anuluj"
         class="popup__btn popup__btn--cancel"
         />
-      <input type="button" value="wybierz" class="popup__btn popup__btn--add" />
+      <input type="button" value="wybierz" class="popup__btn" data-popup-btn-option="changeAvatar" />
     </div>
   </div>
   <script src="/scripts/server-client.js"></script>
   <script src="/scripts/ui.js"></script>
   <script src="/scripts/eventListeners.js"></script>
+  <script>
+    const defaultAvatarsToGenerate=  `<%-JSON.stringify(locals.defaultAvatars) %>`;
+    generateDefaultAvatars(defaultAvatarsToGenerate);
+    const avatarSrc=`<%- JSON.parse( JSON.stringify(locals.avatarSrc)) %>`;
+    setAvatar(avatarSrc);
+    initialize();
+  </script>
+
   </body>
 </html>

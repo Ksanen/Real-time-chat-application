@@ -31,7 +31,6 @@ async function addChat() {
     body: JSON.stringify({ code: code }),
   });
   const result = await response.json();
-  if (!result) return false;
   if (result.error) {
     showErrorMessage(result.error);
     return false;
@@ -61,4 +60,21 @@ async function openChat(contact) {
     secondMemberUsername.slice(0, 2);
   setActiveContact(contact);
   document.querySelector(".app").classList.add("app--mobile--open");
+}
+async function changeAvatar() {
+  try {
+    const avatar = document.querySelector(".avatar--selected");
+    const avatarUrl = avatar.style.backgroundImage;
+    const avatarSrc = avatarUrl.slice(5, -2);
+    const response = await fetch("/app/changeAvatar", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ src: avatarSrc }),
+    });
+    const result = await response.json();
+    if (!result) return alert("error");
+    setAvatar(avatarSrc);
+  } catch (e) {
+    console.log(e);
+  }
 }

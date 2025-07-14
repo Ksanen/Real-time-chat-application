@@ -148,12 +148,32 @@ function selectAvatar(e) {
   );
   avatar.classList.add("avatar--selected");
 }
-function generateDefaultAvatarsToSelect(defaultAvatars) {
+function generateDefaultAvatars(defaultAvatars) {
   const popupAvatars = document.querySelector(".popup__avatars");
-  defaultAvatars.forEach((avatar) => {
-    const avatarImg = document.createElement("img");
-    avatarImg.src = avatar;
-    popupAvatars.appendChild(avatarImg);
+  if (defaultAvatars) {
+    defaultAvatars = JSON.parse(defaultAvatars);
+    defaultAvatars.forEach((avatar) => {
+      const avatarImg = document.createElement("img");
+      avatarImg.classList.add("avatar", "avatar--select");
+      avatarImg.style.backgroundImage = `URL("${avatar.src}")`;
+      popupAvatars.appendChild(avatarImg);
+    });
+  }
+}
+function setAvatar(src) {
+  const headerAvatar = document.querySelector(".app__header__avatar");
+  headerAvatar.style.backgroundImage = src === "" ? "" : `URL("${src}")`;
+}
+function setCorrectAvatarInAvatarsPopup() {
+  const avatarsInPopup = document.querySelectorAll(".avatar--select");
+  const headerAvatar = document.querySelector(".app__header__avatar");
+  const headerAvatarUrl = headerAvatar.style.backgroundImage;
+  avatarsInPopup.forEach((avatar) => {
+    if (avatar.style.backgroundImage === headerAvatarUrl) {
+      avatar.classList.add("avatar--selected");
+    } else {
+      avatar.classList.remove("avatar--selected");
+    }
   });
 }
 function adjustToWindowSize() {
@@ -179,5 +199,5 @@ function initialize() {
   } else if (contact && window.innerWidth > windowWidth) {
     openChat(contact);
   }
+  setCorrectAvatarInAvatarsPopup();
 }
-initialize();

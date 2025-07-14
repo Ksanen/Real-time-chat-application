@@ -6,20 +6,20 @@ export async function createChat(creatorId, codeOfSecondMember) {
     const secondMember = await User.findOne({ code: codeOfSecondMember });
     if (!creator) {
       return {
-        status: false,
+        success: false,
         error: "creator not found",
       };
     }
     if (!secondMember) {
       return {
-        status: false,
+        success: false,
         error: "incorrect code",
       };
     }
     const creatorCode = creator.code;
     if (codeOfSecondMember === creatorCode) {
       return {
-        status: false,
+        success: false,
         error: "code cannot be the same as your code",
       };
     }
@@ -31,7 +31,7 @@ export async function createChat(creatorId, codeOfSecondMember) {
 
     if (chatExists) {
       return {
-        status: false,
+        success: false,
         error: "chat exists",
       };
     } else {
@@ -50,43 +50,9 @@ export async function createChat(creatorId, codeOfSecondMember) {
   } catch (e) {
     console.log(e);
     return {
-      status: false,
+      success: false,
       error: "error",
     };
-  }
-}
-
-export async function getContactsInfo(id) {
-  try {
-    const user = await User.findById(id);
-    if (!user) return false;
-    const chats = user.chats;
-    let contacts = [];
-    for (let i = 0; i < chats.length; i++) {
-      const chat = await Chat.findOne({ name: chats[i] });
-      if (!chat) return false;
-      const idOfSecondMember = chat.members.find((memberId) => memberId != id);
-      const secondMember = await User.findById(idOfSecondMember);
-      const usernameOfSecondMember = secondMember.username;
-      const lastMessageObject = chat.messages[chat.messages.length - 1];
-      let lastMessage, senderUsername;
-      if (lastMessageObject) {
-        lastMessage = lastMessageObject.content;
-        senderUsername = lastMessageObject.senderUsername;
-      }
-      const contact = {
-        username: usernameOfSecondMember,
-        nameOfChat: chat.name,
-        lastMessage: lastMessage || false,
-        senderUsername: senderUsername || false,
-      };
-      contacts.push(contact);
-    }
-
-    return contacts;
-  } catch (e) {
-    console.log(e);
-    return false;
   }
 }
 export async function getChatInfo(nameOfChat, userId) {

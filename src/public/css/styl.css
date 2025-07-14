@@ -319,8 +319,11 @@ body {
 .avatar:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
+.avatar--select {
+  overflow: hidden;
+}
 .avatar--selected {
-  border: 1px solid red;
+  outline: 3px solid red;
 }
 .popup__btn {
   padding: 10px;

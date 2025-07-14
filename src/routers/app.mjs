@@ -1,27 +1,57 @@
 import { Router } from "express";
 import checkIfSessionIsActive from "../middlewares/checkIfSessionIsActive.mjs";
 import { body, validationResult } from "express-validator";
+import { createChat, getChatInfo } from "../controllers/chatControllers.mjs";
+import { changeAvatar } from "../controllers/userController.mjs";
 import {
-  createChat,
-  getChatInfo,
   getContactsInfo,
-} from "../controllers/chatControllers.mjs";
+  getDefaultAvatars,
+} from "../controllers/controllers.mjs";
 const router = Router();
 
 router.get("/app", checkIfSessionIsActive, async (req, res) => {
   try {
     const contactsInfo = await getContactsInfo(req.user.id);
+    const defaultAvatars = await getDefaultAvatars();
     return res.render("app", {
       username: req.user.username,
       code: req.user.code,
       contacts: contactsInfo,
+      defaultAvatars: defaultAvatars,
+      avatarSrc: req.user.avatarSrc,
     });
   } catch (e) {
     console.log("error");
     return res.status(500);
   }
 });
-
+router.put(
+  "/app/changeAvatar",
+  checkIfSessionIsActive,
+  body("src").isString().withMessage("name of chat must be a string"),
+  async (req, res) => {
+    try {
+      const result = validationResult(req);
+      if (!result.isEmpty()) {
+        return res.status(400).json({
+          success: false,
+          errors: result.array(),
+        });
+      }
+      const base64Img = req.body.src;
+      const resultOfChanging = await changeAvatar(req.user.id, base64Img);
+      if (!resultOfChanging.success) {
+        return res.json({
+          error: resultOfChanging.error || "unsuccessfull change of avatar",
+        });
+      }
+      return res.status(200).json({ success: true });
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
 router.post(
   "/app/openChat",
   checkIfSessionIsActive,
@@ -58,16 +88,12 @@ router.post(
     try {
       const result = validationResult(req);
       if (!result.isEmpty()) {
-        return res
-          .status(400)
-          .json({ success: false, error: result.array()[0].msg });
+        return res.json({ success: false, error: result.array()[0].msg });
       }
       const code = req.body.code;
       const createChatResult = await createChat(req.user.id, code);
-      if (!createChatResult.status) {
-        return res
-          .status(404)
-          .json({ success: false, error: createChatResult.error });
+      if (!createChatResult.success) {
+        return res.json({ success: false, error: createChatResult.error });
       }
       return res.status(200).json({ success: true });
     } catch (e) {

@@ -4,6 +4,7 @@ const userSchema = mongoose.Schema({
   password: String,
   code: String,
   chats: [String],
+  avatarSrc: String,
 });
 const User = mongoose.model("user", userSchema, "users");
 export default User;

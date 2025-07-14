@@ -13,8 +13,25 @@ const popups = document.querySelectorAll(".popup");
 popups.forEach((popup) => {
   popup.addEventListener("click", (e) => {
     const popupCancelBtn = e.target.closest(".popup__btn--cancel");
-    if (!popupCancelBtn) return;
-    hidePopUp(popupCancelBtn);
+    if (popupCancelBtn) {
+      console.log("close");
+      hidePopUp(popupCancelBtn);
+      setCorrectAvatarInAvatarsPopup();
+      return;
+    }
+    const popupOptionBtn = e.target.closest("[data-popup-btn-option]");
+    if (popupOptionBtn) {
+      const option = popupOptionBtn.getAttribute("data-popup-btn-option");
+      switch (option) {
+        case "addContact":
+          addChat();
+          break;
+        case "changeAvatar":
+          changeAvatar();
+          hidePopUp(popupOptionBtn);
+          break;
+      }
+    }
   });
 });
 popupContact.addEventListener("click", (e) => {
@@ -24,7 +41,6 @@ popupContact.addEventListener("click", (e) => {
   }
 });
 
-popupAddBtn.addEventListener("click", addChat);
 addContactBtn.addEventListener("click", () => showPopup("code"));
 sendMessageBtb.addEventListener("click", sendMessage);
 backArrow.addEventListener("click", returnToContacts);

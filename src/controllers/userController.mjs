@@ -10,6 +10,7 @@ export const createUser = async function (username, password) {
       password: hash,
       code: await generateUniqueCode(username),
       chats: [],
+      avatar: "",
     });
     return true;
   } catch (e) {
@@ -36,4 +37,25 @@ export const generateUniqueCode = async function (username) {
     }
   } while (!User.findOne({ code: uniqueCode }));
   return uniqueCode;
+};
+export const changeAvatar = async (idUser, imgBase64) => {
+  try {
+    const user = await User.findById(idUser);
+    if (!user)
+      return {
+        success: false,
+        error: "user not found",
+      };
+    user.avatarSrc = imgBase64;
+    await user.save();
+    return {
+      success: true,
+    };
+  } catch (e) {
+    console.log(e);
+    return {
+      success: false,
+      error: "error",
+    };
+  }
 };
