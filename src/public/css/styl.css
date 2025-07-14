@@ -337,9 +337,14 @@ body {
 .popup__btn--add {
   background-color: #1abc9c;
 }
-
+.popup__btn--change {
+  background-color: #2c76a7;
+}
 .popup__btn--add:hover {
   background-color: #16a085;
+}
+.popup__btn--change:hover {
+  background-color: #4495cc;
 }
 .popup__btn--cancel {
   background-color: #95a5a6;
