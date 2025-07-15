@@ -90,7 +90,7 @@ router.post(
 router.post(
   "/app/addChat",
   checkIfSessionIsActive,
-  body("code").notEmpty().withMessage("kod nie może być pusty"),
+  body("code").notEmpty().withMessage("code cannot be empty"),
   async (req, res) => {
     try {
       const result = validationResult(req);

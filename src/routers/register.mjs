@@ -18,12 +18,12 @@ router.post("/register", checkSchema(userValidator), async (req, res) => {
   const userCreated = await createUser(username, password);
   if (!userCreated) {
     return res.render("register", {
-      msg: "użytkownik o takiej nazwie istnieje",
+      msg: "A user with this name exists",
       registered: false,
     });
   }
   res.render("register", {
-    msg: "pomyślnie utworzono użytkownika. Zostaniesz przekierowany na stronę logowania",
+    msg: "User successfully created. You will be redirected to the login page.",
     registered: true,
   });
 });

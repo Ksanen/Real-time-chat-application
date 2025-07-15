@@ -7,6 +7,6 @@ export default (io) => {
     newMessage(socket, io);
     joinRoom(socket);
     changeAvatar(socket, io);
-    console.log("połączono", socket.id);
+    console.log("connected", socket.id);
   });
 };

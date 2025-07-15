@@ -21,14 +21,14 @@ router.post(
   function (req, res, next) {
     passport.authenticate("local", (err, user, info) => {
       if (err) {
-        return res.render("logIn", { msg: "logowanie nie powiodło się" });
+        return res.render("logIn", { msg: "login failed" });
       }
       if (!user) {
         return res.render("logIn", { msg: info.msg });
       }
       req.login(user, (err) => {
         if (err) {
-          return res.render("logIn", { msg: "błąd logowania" });
+          return res.render("logIn", { msg: "login error" });
         }
         return res.redirect("/app");
       });

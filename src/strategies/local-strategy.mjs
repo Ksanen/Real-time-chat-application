@@ -24,11 +24,11 @@ passport.use(
         username: usernameRegExp,
       });
       if (!userExists) {
-        return done(null, false, { msg: "użytkownik nie istnieje" });
+        return done(null, false, { msg: "user does not exist" });
       }
       const passwordIsCorrect = await verifyPassword(usernameRegExp, password);
       if (!passwordIsCorrect) {
-        return done(null, false, { msg: "niepoprawne hasło" });
+        return done(null, false, { msg: "incorrect password" });
       }
       return done(null, userExists);
     } catch (e) {

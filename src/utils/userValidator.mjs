@@ -2,20 +2,20 @@ const userValidator = {
   username: {
     isString: true,
     notEmpty: {
-      errorMessage: "nazwa użytkownika nie może być pusta",
+      errorMessage: "Username cannot be empty",
     },
     isLength: {
       options: {
         min: 4,
         max: 15,
       },
-      errorMessage: "nazwa użytownika musi mieć długość 4-15 znaków",
+      errorMessage: "Name of the user must have 4-15 characters",
     },
   },
   password: {
     isString: true,
     notEmpty: {
-      errorMessage: "hasło nie może być puste",
+      errorMessage: "Password cannot be empty",
     },
   },
 };
