@@ -176,17 +176,15 @@ function setYourAvatar(src) {
 }
 function adjustAvatarsInChat(avatar, memberUsername) {
   const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
+  chatHeaderAvatar.style.backgroundImage = `url(${avatar})`;
+  chatHeaderAvatar.textContent =
+    avatar === "" ? memberUsername.slice(0, 2) : "";
+}
+function adjustAvatarsInContact(avatar, memberUsername) {
   const contactActive = document.querySelector(".contact--active");
   const contactAvatar = contactActive.querySelector(".avatar");
-  chatHeaderAvatar.style.backgroundImage = `url(${avatar})`;
   contactAvatar.style.backgroundImage = `url(${avatar})`;
-  if (avatar === "") {
-    chatHeaderAvatar.textContent = memberUsername.slice(0, 2);
-    contactAvatar.textContent = memberUsername.slice(0, 2);
-  } else {
-    chatHeaderAvatar.textContent = "";
-    contactAvatar.textContent = "";
-  }
+  contactAvatar.textContent = avatar === "" ? memberUsername.slice(0, 2) : "";
 }
 function adjustAvatarsInMessages(avatar, memberUsername) {
   const messageContentAvatars = document.querySelectorAll(
@@ -226,9 +224,22 @@ async function openChat(contact) {
   document.querySelector(".app").classList.add("app--mobile--open");
   document.querySelector(".chat__header__username").textContent =
     memberUsername;
+  const messages = chatData.chat.messages;
+  const lastMessage =
+    messages.length > 0 ? messages[messages.length - 1].content : false;
   addMessages(chatData);
   setActiveContact(contact);
+  adjustLastMessage(lastMessage, chatData.senderUsername);
   adjustAvatarsInChat(senderAvatar, memberUsername);
+  adjustAvatarsInContact(senderAvatar, memberUsername);
+}
+function adjustLastMessage(message, senderUsername) {
+  if (!message) return;
+  const contactActive = document.querySelector(".contact--active");
+  const contactInfoText = contactActive.querySelector(".contact__info__text");
+  const text =
+    senderUsername === yourUsername ? `ty: ${message}` : `${message}`;
+  contactInfoText.textContent = text;
 }
 function adjustToWindowSize() {
   const app = document.querySelector(".app");

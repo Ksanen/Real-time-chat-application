@@ -7,18 +7,18 @@ socket.on("newMessage", ({ message, id, senderUsername, avatarSrc }) => {
   messagesContainer.appendChild(
     createMessage(message, id, senderUsername, Date.now(), avatarSrc)
   );
-  const contactInfoText = document
-    .querySelector(".contact--active")
-    .querySelector(".contact__info__text");
-  const text =
-    senderUsername === yourUsername ? `ty: ${message}` : `${message}`;
-  contactInfoText.textContent = text;
+  adjustLastMessage(message, senderUsername);
   scrollToBottom();
 });
 socket.on("changeAvatar", ({ avatar, username }) => {
+  const chatHeaderUsernameDiv = document.querySelector(
+    ".chat__header__username"
+  );
+  if (chatHeaderUsernameDiv.textContent !== username) return;
   if (yourUsername === username) return;
   adjustAvatarsInMessages(avatar, username);
   adjustAvatarsInChat(avatar, username);
+  adjustAvatarsInContact(avatar, username);
 });
 async function sendMessage() {
   const messageDiv = document.querySelector(".chat__footer__message");
