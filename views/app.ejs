@@ -139,13 +139,8 @@
   <script src="/scripts/eventListeners.js"></script>
   <script>
       const defaultAvatarsToGenerate=  `<%-JSON.stringify(locals.defaultAvatars) %>`;
-      const avatarSrc=`<%- JSON.parse( JSON.stringify(locals.avatarSrc)) %>`;
-      let contacts=`<%-  JSON.stringify(locals.contacts) %>`;
-      contacts=JSON.parse(contacts);
-      generateDefaultAvatars(defaultAvatarsToGenerate);
-      setYourAvatar(avatarSrc);
-      initialize();
+      const avatar=`<%- JSON.parse( JSON.stringify(locals.avatarSrc)) %>`;
+      initialize(avatar,defaultAvatarsToGenerate);
   </script>
-
   </body>
 </html>

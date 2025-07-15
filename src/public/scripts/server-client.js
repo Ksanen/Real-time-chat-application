@@ -2,7 +2,6 @@ const socket = io();
 const yourUsername = document
   .querySelector("[data-username]")
   .getAttribute("data-username");
-
 socket.on("newMessage", ({ message, id, senderUsername, avatarSrc }) => {
   const messagesContainer = document.querySelector(".chat__content");
   messagesContainer.appendChild(
@@ -17,37 +16,9 @@ socket.on("newMessage", ({ message, id, senderUsername, avatarSrc }) => {
   scrollToBottom();
 });
 socket.on("changeAvatar", ({ avatar, username }) => {
-  const activeContact = document.querySelector(".contact--active");
-  const contactAvatar = activeContact.querySelector(".avatar");
-  const chatHeaderUsernameDiv = document.querySelector(
-    ".chat__header__username"
-  );
-  if (chatHeaderUsernameDiv.textContent !== username) return;
   if (yourUsername === username) return;
-  console.log(yourUsername, username);
-  const messageContentAvatars = document.querySelectorAll(
-    ".message__content__avatar"
-  );
-  const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
-
-  messageContentAvatars.forEach((messageAvatar) => {
-    if (avatar === "") {
-      messageAvatar.textContent = username.slice(0, 2);
-      messageAvatar.style.backgroundImage = ``;
-    } else {
-      messageAvatar.textContent = "";
-      messageAvatar.style.backgroundImage = `url(${avatar})`;
-    }
-  });
-  chatHeaderAvatar.style.backgroundImage = `url(${avatar})`;
-  contactAvatar.style.backgroundImage = `url(${avatar})`;
-  if (avatar === "") {
-    contactAvatar.textContent = username.slice(0, 2);
-    chatHeaderAvatar.textContent = username.slice(0, 2);
-  } else {
-    chatHeaderAvatar.textContent = "";
-    contactAvatar.textContent = "";
-  }
+  adjustAvatarsInMessages(avatar, username);
+  adjustAvatarsInChat(avatar, username);
 });
 async function sendMessage() {
   const messageDiv = document.querySelector(".chat__footer__message");
@@ -72,8 +43,7 @@ async function addChat() {
   location.reload();
   return true;
 }
-async function openChat(contact) {
-  const nameOfChat = contact.getAttribute("data-name-of-chat");
+async function getChatData(nameOfChat) {
   const response = await fetch("/app/openChat", {
     method: "POST",
     headers: {
@@ -82,18 +52,7 @@ async function openChat(contact) {
     body: JSON.stringify({ nameOfChat: nameOfChat }),
   });
   const chatData = await response.json();
-  if (!chatData.success) return;
-  const { senderAvatar } = chatData;
-  socket.emit("join-room", nameOfChat);
-  const memberUsername = contact.querySelector(
-    ".contact__info__name"
-  ).textContent;
-  document.querySelector(".app").classList.add("app--mobile--open");
-  document.querySelector(".chat__header__username").textContent =
-    memberUsername;
-  addMessages(chatData);
-  setActiveContact(contact);
-  adjustAvatarsInChat(senderAvatar, memberUsername);
+  return chatData.success ? chatData : false;
 }
 async function changeAvatar() {
   try {
