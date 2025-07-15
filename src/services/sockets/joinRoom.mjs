@@ -5,7 +5,6 @@ export default (socket) => {
     );
     roomsToLeave.forEach((roomToLeave) => {
       socket.leave(roomToLeave);
-      console.log("opuszczono");
     });
     socket.join(roomToJoin);
     socket.request.session.currentNameOfChat = roomToJoin;

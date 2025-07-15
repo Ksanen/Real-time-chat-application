@@ -16,9 +16,17 @@ socket.on("changeAvatar", ({ avatar, username }) => {
   );
   if (chatHeaderUsernameDiv.textContent !== username) return;
   if (yourUsername === username) return;
-  adjustAvatarsInMessages(avatar, username);
-  adjustAvatarsInChat(avatar, username);
-  adjustAvatarsInContact(avatar, username);
+  const avatarDivs = [];
+  const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
+  const contactActive = document.querySelector(".contact--active");
+  const contactAvatar = contactActive.querySelector(".avatar");
+  const messageContentAvatars = document.querySelectorAll(
+    ".message__content__avatar"
+  );
+  avatarDivs.push(...messageContentAvatars);
+  avatarDivs.push(chatHeaderAvatar);
+  avatarDivs.push(contactAvatar);
+  adjustAvatars(avatar, username, avatarDivs);
 });
 async function sendMessage() {
   const messageDiv = document.querySelector(".chat__footer__message");

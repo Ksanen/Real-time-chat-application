@@ -174,30 +174,13 @@ function setYourAvatar(src) {
   headerAvatar.style.backgroundImage = src === "" ? "" : `URL("${src}")`;
   headerAvatar.textContent = src === "" ? yourUsername.slice(0, 2) : "";
 }
-function adjustAvatarsInChat(avatar, memberUsername) {
-  const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
-  chatHeaderAvatar.style.backgroundImage = `url(${avatar})`;
-  chatHeaderAvatar.textContent =
-    avatar === "" ? memberUsername.slice(0, 2) : "";
-}
-function adjustAvatarsInContact(avatar, memberUsername) {
-  const contactActive = document.querySelector(".contact--active");
-  const contactAvatar = contactActive.querySelector(".avatar");
-  contactAvatar.style.backgroundImage = `url(${avatar})`;
-  contactAvatar.textContent = avatar === "" ? memberUsername.slice(0, 2) : "";
-}
-function adjustAvatarsInMessages(avatar, memberUsername) {
-  const messageContentAvatars = document.querySelectorAll(
-    ".message__content__avatar"
-  );
-  messageContentAvatars.forEach((messageAvatar) => {
-    if (avatar === "") {
-      messageAvatar.textContent = memberUsername.slice(0, 2);
-      messageAvatar.style.backgroundImage = ``;
-    } else {
-      messageAvatar.textContent = "";
-      messageAvatar.style.backgroundImage = `url(${avatar})`;
-    }
+/*
+  avatarDiv - Wszystkie divy dla których chce się ustawić avatar
+*/
+function adjustAvatars(avatar, username, avatarDivs) {
+  avatarDivs.forEach((div) => {
+    div.style.backgroundImage = `url(${avatar})`;
+    div.textContent = avatar === "" ? username.slice(0, 2) : "";
   });
 }
 function setCorrectAvatarInAvatarsPopup() {
@@ -230,8 +213,13 @@ async function openChat(contact) {
   addMessages(chatData);
   setActiveContact(contact);
   adjustLastMessage(lastMessage, chatData.senderUsername);
-  adjustAvatarsInChat(senderAvatar, memberUsername);
-  adjustAvatarsInContact(senderAvatar, memberUsername);
+  const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
+  const contactActive = document.querySelector(".contact--active");
+  const contactAvatar = contactActive.querySelector(".avatar");
+  const avatarDivs = [];
+  avatarDivs.push(chatHeaderAvatar);
+  avatarDivs.push(contactAvatar);
+  adjustAvatars(senderAvatar, memberUsername, avatarDivs);
 }
 function adjustLastMessage(message, senderUsername) {
   if (!message) return;
