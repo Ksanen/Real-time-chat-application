@@ -4,6 +4,7 @@ import { body, validationResult } from "express-validator";
 import { createChat, getChatInfo } from "../controllers/chatControllers.mjs";
 import { changeAvatar } from "../controllers/userController.mjs";
 import {
+  addDefaultAvatarsToDatabase,
   getContactsInfo,
   getDefaultAvatars,
 } from "../controllers/controllers.mjs";
@@ -13,6 +14,7 @@ const router = Router();
 router.get("/app", checkIfSessionIsActive, async (req, res) => {
   try {
     const contactsInfo = await getContactsInfo(req.user.id);
+    await addDefaultAvatarsToDatabase();
     const defaultAvatars = await getDefaultAvatars();
     return res.render("app", {
       username: req.user.username,

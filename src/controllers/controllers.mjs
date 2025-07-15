@@ -1,7 +1,19 @@
 import Chat from "../models/chatSchema.mjs";
 import Avatar from "../models/defaultAvatars.mjs";
 import User from "../models/userSchema.mjs";
-
+import defaultAvatarsSrc from "../utils/defaultAvatarsSrc.mjs";
+export const addDefaultAvatarsToDatabase = async () => {
+  try {
+    const defaultAvatarsExists = await Avatar.find();
+    if (defaultAvatarsExists.length > 0) return;
+    for (let i = 0; i < defaultAvatarsSrc.length; i++) {
+      await Avatar.create({ src: defaultAvatarsSrc[i] });
+    }
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+};
 export const getDefaultAvatars = async () => {
   try {
     const defaultAvatars = await Avatar.find();

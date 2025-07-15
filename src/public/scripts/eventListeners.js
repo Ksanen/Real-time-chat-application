@@ -28,6 +28,7 @@ popups.forEach((popup) => {
         case "closePopup":
           hidePopup(type);
           setCorrectAvatarInAvatarsPopup();
+          clearErrorMessage();
           break;
       }
     }

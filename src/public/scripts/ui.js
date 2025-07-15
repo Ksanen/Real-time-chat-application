@@ -7,7 +7,6 @@ function hidePopup(type) {
   document.querySelector(`.popup--${type}`).classList.remove("popup--show");
   document.querySelector(".layer").classList.add("closed");
   document.querySelector(".popup__info__code").value = "";
-  clearErrorMessage();
 }
 function clearErrorMessage() {
   document.querySelector(".popup__error").textContent = "";
@@ -47,7 +46,6 @@ function addMessages(chatData) {
     );
     messagesContainer.append(messageElement);
   });
-  scrollToBottom();
 }
 function createMessage(
   message,
@@ -211,6 +209,7 @@ async function openChat(contact) {
   const sender =
     messages.length > 0 ? messages[messages.length - 1].senderUsername : false;
   addMessages(chatData);
+  scrollToBottom();
   setActiveContact(contact);
   adjustLastMessage(lastMessage, sender);
   const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
@@ -225,7 +224,6 @@ function adjustLastMessage(message, senderUsername) {
   if (!message) return;
   const contactActive = document.querySelector(".contact--active");
   const contactInfoText = contactActive.querySelector(".contact__info__text");
-  console.log(senderUsername, yourUsername);
   const text =
     senderUsername === yourUsername ? `ty: ${message}` : `${message}`;
   contactInfoText.textContent = text;
