@@ -14,7 +14,10 @@ const router = Router();
 router.get("/app", checkIfSessionIsActive, async (req, res) => {
   try {
     const contactsInfo = await getContactsInfo(req.user.id);
-    await addDefaultAvatarsToDatabase();
+    const addingAvatarsResult = await addDefaultAvatarsToDatabase();
+    if (!addingAvatarsResult) {
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
     const defaultAvatars = await getDefaultAvatars();
     return res.render("app", {
       username: req.user.username,
@@ -25,7 +28,7 @@ router.get("/app", checkIfSessionIsActive, async (req, res) => {
     });
   } catch (e) {
     console.log("error");
-    return res.status(500);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 router.put(

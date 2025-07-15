@@ -2,13 +2,18 @@ import Chat from "../models/chatSchema.mjs";
 import Avatar from "../models/defaultAvatars.mjs";
 import User from "../models/userSchema.mjs";
 import defaultAvatarsSrc from "../utils/defaultAvatarsSrc.mjs";
+/*
+  true- avatary istnieją w bazie lub zostały z sukcesem dodane
+  false - błąd
+*/
 export const addDefaultAvatarsToDatabase = async () => {
   try {
     const defaultAvatarsExists = await Avatar.find();
-    if (defaultAvatarsExists.length > 0) return;
+    if (defaultAvatarsExists.length > 0) return true;
     for (let i = 0; i < defaultAvatarsSrc.length; i++) {
       await Avatar.create({ src: defaultAvatarsSrc[i] });
     }
+    return true;
   } catch (e) {
     console.log(e);
     return false;
