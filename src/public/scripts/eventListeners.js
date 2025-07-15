@@ -39,6 +39,12 @@ appMenuContacts.addEventListener("click", (e) => {
     openChat(contact);
   }
 });
+window.addEventListener("keyup", (e) => {
+  if (e.key !== "Enter") return;
+  const appMobileOpen = document.querySelector(".app--mobile--open");
+  if (!appMobileOpen) return;
+  sendMessage();
+});
 
 addContactBtn.addEventListener("click", () => showPopup("code"));
 sendMessageBtb.addEventListener("click", sendMessage);
