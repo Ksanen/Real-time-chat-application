@@ -234,15 +234,36 @@ function adjustToWindowSize() {
   } else {
     app.classList.remove("app--mobile");
     app.classList.add("app--mobile--open");
+    activateAppropriateContact();
   }
   const appHeaderAvatar = document.querySelector(".app__header__avatar");
   appHeaderAvatar.style.width = `${
     appHeaderAvatar.getBoundingClientRect().height
   }px`;
 }
-
+function activateAppropriateContact() {
+  /*
+    Na małych ekranach jest możliwość, żeby żaden chat nie był otwarty,dlatego przy
+    zwiększeniu rozmiaru ekranu trzeba z powrotem zaznaczyć odpowiedni kontakt
+  */
+  const chatHeaderUsername = document.querySelector(
+    ".chat__header__username"
+  ).textContent;
+  const contacts = document.querySelectorAll(".contact");
+  contacts.forEach((contact) => {
+    const contactInfoName = contact.querySelector(
+      ".contact__info__name"
+    ).textContent;
+    if (contactInfoName === chatHeaderUsername) {
+      contact.classList.add("contact--active");
+    }
+  });
+}
 function initialize(avatar, defaultAvatarsToGenerate) {
   adjustToWindowSize();
+  generateDefaultAvatars(defaultAvatarsToGenerate);
+  setYourAvatar(avatar);
+  setCorrectAvatarInAvatarsPopup();
   const contact = document.querySelector(".contact");
   const app = document.querySelector(".app");
   if (!contact) {
@@ -250,7 +271,4 @@ function initialize(avatar, defaultAvatarsToGenerate) {
   } else if (contact && window.innerWidth > windowWidth) {
     openChat(contact);
   }
-  generateDefaultAvatars(defaultAvatarsToGenerate);
-  setYourAvatar(avatar);
-  setCorrectAvatarInAvatarsPopup();
 }
