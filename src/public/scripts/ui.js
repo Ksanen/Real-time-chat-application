@@ -236,6 +236,9 @@ function adjustToWindowSize() {
     app.classList.add("app--mobile--open");
     activateAppropriateContact();
   }
+  adjustAvatarSize();
+}
+function adjustAvatarSize() {
   const appHeaderAvatar = document.querySelector(".app__header__avatar");
   appHeaderAvatar.style.width = `${
     appHeaderAvatar.getBoundingClientRect().height
@@ -255,7 +258,7 @@ function activateAppropriateContact() {
       ".contact__info__name"
     ).textContent;
     if (contactInfoName === chatHeaderUsername) {
-      contact.classList.add("contact--active");
+      setActiveContact(contact);
     }
   });
 }
