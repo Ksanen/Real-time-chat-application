@@ -3,9 +3,7 @@ function showPopup(type) {
   document.querySelector(`.popup--${type}`).classList.add("popup--show");
   document.querySelector(".layer").classList.remove("closed");
 }
-function hidePopUp(hidePopUpButton) {
-  const popup = hidePopUpButton.parentNode.parentNode;
-  const type = popup.getAttribute("data-type-of-popup");
+function hidePopup(type) {
   document.querySelector(`.popup--${type}`).classList.remove("popup--show");
   document.querySelector(".layer").classList.add("closed");
   document.querySelector(".popup__info__code").value = "";
