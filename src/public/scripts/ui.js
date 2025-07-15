@@ -208,9 +208,11 @@ async function openChat(contact) {
   const messages = chatData.chat.messages;
   const lastMessage =
     messages.length > 0 ? messages[messages.length - 1].content : false;
+  const sender =
+    messages.length > 0 ? messages[messages.length - 1].senderUsername : false;
   addMessages(chatData);
   setActiveContact(contact);
-  adjustLastMessage(lastMessage, chatData.senderUsername);
+  adjustLastMessage(lastMessage, sender);
   const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
   const contactActive = document.querySelector(".contact--active");
   const contactAvatar = contactActive.querySelector(".avatar");
@@ -223,6 +225,7 @@ function adjustLastMessage(message, senderUsername) {
   if (!message) return;
   const contactActive = document.querySelector(".contact--active");
   const contactInfoText = contactActive.querySelector(".contact__info__text");
+  console.log(senderUsername, yourUsername);
   const text =
     senderUsername === yourUsername ? `ty: ${message}` : `${message}`;
   contactInfoText.textContent = text;
