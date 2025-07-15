@@ -240,9 +240,8 @@ function adjustToWindowSize() {
 }
 function adjustAvatarSize() {
   const appHeaderAvatar = document.querySelector(".app__header__avatar");
-  appHeaderAvatar.style.width = `${
-    appHeaderAvatar.getBoundingClientRect().height
-  }px`;
+  const height = appHeaderAvatar.getBoundingClientRect().height;
+  appHeaderAvatar.style.width = `${height}px`;
 }
 function activateAppropriateContact() {
   /*
