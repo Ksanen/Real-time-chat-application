@@ -147,6 +147,7 @@ body {
 .app__header__avatar,
 .avatar {
   background-color: white;
+  background-size: cover;
   border-radius: 50%;
   display: flex;
   align-items: center;
