@@ -3,36 +3,61 @@ const yourUsername = document
   .querySelector("[data-username]")
   .getAttribute("data-username");
 socket.on("newMessage", ({ message, id, senderUsername, avatarSrc }) => {
+  const chatHeaderUsername = document.querySelector(
+    ".chat__header__username"
+  ).textContent;
+  adjustLastMessage(message, senderUsername);
+  if (chatHeaderUsername !== senderUsername && yourUsername !== senderUsername)
+    return;
   const messagesContainer = document.querySelector(".chat__content");
   messagesContainer.appendChild(
     createMessage(message, id, senderUsername, Date.now(), avatarSrc)
   );
-  adjustLastMessage(message, senderUsername);
   scrollToBottom();
 });
 socket.on("changeAvatar", ({ avatar, username }) => {
   const chatHeaderUsernameDiv = document.querySelector(
     ".chat__header__username"
   );
-  if (chatHeaderUsernameDiv.textContent !== username) return;
   if (yourUsername === username) return;
   const avatarDivs = [];
-  const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
-  const contactActive = document.querySelector(".contact--active");
-  const contactAvatar = contactActive.querySelector(".avatar");
-  const messageContentAvatars = document.querySelectorAll(
-    ".message__content__avatar"
-  );
-  avatarDivs.push(...messageContentAvatars);
-  avatarDivs.push(chatHeaderAvatar);
+  if (chatHeaderUsernameDiv.textContent === username) {
+    const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
+    avatarDivs.push(chatHeaderAvatar);
+
+    const messageContentAvatars = document.querySelectorAll(
+      ".message__content__avatar"
+    );
+    avatarDivs.push(...messageContentAvatars);
+  }
+  const contactInfoNames = document.querySelectorAll(".contact__info__name");
+  const contactInfoName = Array.from(contactInfoNames).filter(
+    (name) => name.textContent === username
+  )[0];
+  const contact = contactInfoName.closest(".contact");
+  const contactAvatar = contact.querySelector(".avatar");
+
   avatarDivs.push(contactAvatar);
   adjustAvatars(avatar, username, avatarDivs);
 });
+function joinAllRooms() {
+  const dataNameOfChat = document.querySelectorAll("[data-name-of-chat]");
+  const chatNames = [];
+  dataNameOfChat.forEach((chat) => {
+    chatNames.push(chat.getAttribute("data-name-of-chat"));
+  });
+  socket.emit("join-rooms", chatNames);
+}
 async function sendMessage() {
   const messageDiv = document.querySelector(".chat__footer__message");
   const message = messageDiv.value;
+  const activeContact = document.querySelector(".contact--active");
+  const nameOfChat = activeContact.getAttribute("data-name-of-chat");
   messageDiv.value = "";
-  socket.emit("newMessage", message);
+  socket.emit("newMessage", {
+    newMessage: message,
+    nameOfChat: nameOfChat,
+  });
 }
 async function addChat() {
   const code = document.querySelector(".popup__info__code").value;

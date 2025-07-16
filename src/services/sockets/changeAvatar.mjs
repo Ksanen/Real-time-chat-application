@@ -1,8 +1,12 @@
 export default (socket, io) => {
   socket.on("changeAvatar", ({ avatar, username }) => {
-    io.to(socket.request.session.currentNameOfChat).emit("changeAvatar", {
-      avatar: avatar,
-      username: username,
+    Array.from(socket.rooms).forEach((room) => {
+      if (room !== socket.id) {
+        io.to(room).emit("changeAvatar", {
+          avatar: avatar,
+          username: username,
+        });
+      }
     });
   });
 };

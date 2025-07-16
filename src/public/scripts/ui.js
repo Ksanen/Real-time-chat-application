@@ -213,7 +213,6 @@ async function openChat(contact) {
   const chatData = await getChatData(nameOfChat);
   if (!chatData) return;
   const { senderAvatar } = chatData;
-  socket.emit("join-room", nameOfChat);
   const memberUsername = contact.querySelector(
     ".contact__info__name"
   ).textContent;
@@ -228,19 +227,24 @@ async function openChat(contact) {
   addMessages(chatData);
   scrollToBottom();
   setActiveContact(contact);
-  adjustLastMessage(lastMessage, sender);
   const chatHeaderAvatar = document.querySelector(".chat__header__avatar");
-  const contactActive = document.querySelector(".contact--active");
-  const contactAvatar = contactActive.querySelector(".avatar");
-  const avatarDivs = [];
-  avatarDivs.push(chatHeaderAvatar);
-  avatarDivs.push(contactAvatar);
-  adjustAvatars(senderAvatar, memberUsername, avatarDivs);
+  adjustAvatars(senderAvatar, memberUsername, [chatHeaderAvatar]);
 }
 function adjustLastMessage(message, senderUsername) {
   if (!message) return;
-  const contactActive = document.querySelector(".contact--active");
-  const contactInfoText = contactActive.querySelector(".contact__info__text");
+  const contactInfoNames = Array.from(
+    document.querySelectorAll(".contact__info__name")
+  );
+  const contactInfoName = contactInfoNames.filter(
+    (contactName) => contactName.textContent === senderUsername
+  )[0];
+  let contact;
+  if (!contactInfoName) {
+    contact = document.querySelector(".contact--active");
+  } else {
+    contact = contactInfoName.parentNode.parentNode;
+  }
+  const contactInfoText = contact.querySelector(".contact__info__text");
   const text =
     senderUsername === yourUsername ? `ty: ${message}` : `${message}`;
   contactInfoText.textContent = text;
@@ -286,6 +290,7 @@ function initialize(avatar, defaultAvatarsToGenerate) {
   setCorrectAvatarInAvatarsPopup();
   const contact = document.querySelector(".contact");
   const app = document.querySelector(".app");
+  joinAllRooms();
   if (!contact) {
     app.classList.add("app--no-contacts");
   } else if (contact && window.innerWidth > windowWidth) {

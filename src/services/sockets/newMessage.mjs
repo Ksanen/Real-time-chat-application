@@ -2,7 +2,7 @@ import { sendMessageToChat } from "../../controllers/chatControllers.mjs";
 import User from "../../models/userSchema.mjs";
 
 export default (socket, io) => {
-  socket.on("newMessage", async (newMessage) => {
+  socket.on("newMessage", async ({ newMessage, nameOfChat }) => {
     try {
       if (typeof newMessage !== "string" || newMessage.length === 0) return;
       const userId = socket.request.session.passport.user;
@@ -10,16 +10,17 @@ export default (socket, io) => {
       if (!user) return;
       const message = await sendMessageToChat(
         newMessage,
-        socket.request.session.currentNameOfChat,
+        nameOfChat,
         user.username
       );
-      io.to(socket.request.session.currentNameOfChat).emit("newMessage", {
+      const messageToEmit = {
         message: newMessage,
         messageId: String(message._id),
         senderUsername: user.username,
         avatarSrc: user.avatarSrc,
         date: message.date,
-      });
+      };
+      io.to(nameOfChat).emit("newMessage", messageToEmit);
     } catch (e) {
       console.log(e);
       return;
