@@ -42,6 +42,10 @@ Upewnij się, że masz node.js
 <img width="669" height="312" alt="chat-3" src="https://github.com/user-attachments/assets/a38badd2-6170-423f-a104-9b10576a9506" />
 <img width="589" height="169" alt="chat-4" src="https://github.com/user-attachments/assets/20e1c390-4e8d-4757-8246-652500bc6806" />
 
+## Wyświetlana jest data po kliknięciu w wiadomość
+
+<img width="897" height="114" alt="chat-7" src="https://github.com/user-attachments/assets/6d730d1b-c30c-46b1-b258-8d1a4b963fb9" />
+
 ## Na mniejszych ekranach
 
 <img width="552" height="485" alt="chat-5" src="https://github.com/user-attachments/assets/67e80519-1f66-4de8-a7ae-54d2900eb420" />
