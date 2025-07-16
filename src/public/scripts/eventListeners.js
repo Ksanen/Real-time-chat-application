@@ -19,10 +19,11 @@ popups.forEach((popup) => {
     }
   });
   popup.addEventListener("keyup", (e) => {
-    if (e.key !== "Enter" && e.key !== "Space") return;
-    const avatarSelect = e.target.closest(".avatar--select");
-    if (avatarSelect) {
-      selectAvatar(avatarSelect);
+    if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+      const avatarSelect = e.target.closest(".avatar--select");
+      if (avatarSelect) {
+        selectAvatar(avatarSelect);
+      }
     }
   });
 });
@@ -33,16 +34,18 @@ appMenuContacts.addEventListener("click", (e) => {
   openChat(contact);
 });
 appMenuContacts.addEventListener("keyup", (e) => {
-  if (e.key !== "Enter" && e.key !== "Space") return;
-  const contact = e.target.closest(".contact");
-  if (!contact) return;
-  openChat(contact);
+  if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+    const contact = e.target.closest(".contact");
+    if (!contact) return;
+    openChat(contact);
+  }
 });
 window.addEventListener("keyup", (e) => {
-  if (e.key !== "Enter" && e.key !== "Space") return;
-  const appMobileOpen = document.querySelector(".app--mobile--open");
-  if (!appMobileOpen) return;
-  sendMessage();
+  if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+    const appMobileOpen = document.querySelector(".app--mobile--open");
+    if (!appMobileOpen) return;
+    sendMessage();
+  }
 });
 
 addContactBtn.addEventListener("click", () => {
@@ -54,17 +57,21 @@ backArrow.addEventListener("click", returnToContacts);
 chatContent.addEventListener("click", (e) => showDateOfMessage(e));
 appHeaderAvatar.addEventListener("click", toggleSettings);
 appHeaderAvatar.addEventListener("keyup", (e) => {
-  if (e.key !== "Enter" && e.key !== "Space") return;
-  toggleSettings();
+  console.log(e.key);
+  if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+    console.log(1);
+    toggleSettings();
+  }
 });
 changeAvatarOption.addEventListener("click", () => {
   showPopup("avatars");
   disactivateFocusableElementsInApp();
 });
 changeAvatarOption.addEventListener("keyup", (e) => {
-  if (e.key !== "Enter" && e.key !== "Space") return;
-  showPopup("avatars");
-  disactivateFocusableElementsInApp();
+  if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+    showPopup("avatars");
+    disactivateFocusableElementsInApp();
+  }
 });
 window.addEventListener("resize", adjustToWindowSize);
 app.addEventListener("click", (e) => hideSettings(e));
