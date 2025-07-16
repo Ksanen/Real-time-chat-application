@@ -24,6 +24,20 @@ function disactivateContacts() {
     activeContact.classList.remove("contact--active");
   });
 }
+function disactivateInputsInApp() {
+  const app = document.querySelector(".app");
+  const inputs = app.querySelectorAll("input");
+  inputs.forEach((input) => {
+    input.setAttribute("inert", "");
+  });
+}
+function activateInputsInApp() {
+  const app = document.querySelector(".app");
+  const inputs = app.querySelectorAll("input");
+  inputs.forEach((input) => {
+    input.removeAttribute("inert");
+  });
+}
 function scrollToBottom() {
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -285,9 +299,11 @@ function popupOptionHandler(popupOptionBtn) {
     case "changeAvatar":
       changeAvatar();
       hidePopup(type);
+      activateInputsInApp();
       break;
     case "closePopup":
       hidePopup(type);
+      activateInputsInApp();
       setCorrectAvatarInAvatarsPopup();
       clearErrorMessage();
       break;

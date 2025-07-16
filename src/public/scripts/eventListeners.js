@@ -40,11 +40,17 @@ window.addEventListener("keyup", (e) => {
   sendMessage();
 });
 
-addContactBtn.addEventListener("click", () => showPopup("code"));
+addContactBtn.addEventListener("click", () => {
+  showPopup("code");
+  disactivateInputsInApp();
+});
 sendMessageBtb.addEventListener("click", sendMessage);
 backArrow.addEventListener("click", returnToContacts);
 chatContent.addEventListener("click", (e) => showDateOfMessage(e));
 appHeaderAvatar.addEventListener("click", toggleSettings);
-changeAvatarOption.addEventListener("click", () => showPopup("avatars"));
+changeAvatarOption.addEventListener("click", () => {
+  showPopup("avatars");
+  disactivateInputsInApp();
+});
 window.addEventListener("resize", adjustToWindowSize);
 app.addEventListener("click", (e) => hideSettings(e));
