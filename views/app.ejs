@@ -42,7 +42,7 @@
           <div class="app__menu__contacts">
 
           <% for(let i=0;i<locals.contacts.length;i++){ %>
-          <div class="contact" data-name-of-chat="<%= locals.contacts[i].nameOfChat  %>">
+          <div tabindex="0" class="contact" data-name-of-chat="<%= locals.contacts[i].nameOfChat  %>">
             <% if(locals.contacts[i].avatarSrc===""){ %>
             <div class="avatar" style="background-image:''"> 
             <% } else{%>

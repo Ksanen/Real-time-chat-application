@@ -29,9 +29,14 @@ popups.forEach((popup) => {
 
 appMenuContacts.addEventListener("click", (e) => {
   const contact = e.target.closest(".contact");
-  if (contact) {
-    openChat(contact);
-  }
+  if (!contact) return;
+  openChat(contact);
+});
+appMenuContacts.addEventListener("keyup", (e) => {
+  if (e.key !== "Enter") return;
+  const contact = e.target.closest(".contact");
+  if (!contact) return;
+  openChat(contact);
 });
 window.addEventListener("keyup", (e) => {
   if (e.key !== "Enter") return;
@@ -42,7 +47,7 @@ window.addEventListener("keyup", (e) => {
 
 addContactBtn.addEventListener("click", () => {
   showPopup("code");
-  disactivateInputsInApp();
+  disactivateFocusableElementsInApp();
 });
 sendMessageBtb.addEventListener("click", sendMessage);
 backArrow.addEventListener("click", returnToContacts);
@@ -50,7 +55,7 @@ chatContent.addEventListener("click", (e) => showDateOfMessage(e));
 appHeaderAvatar.addEventListener("click", toggleSettings);
 changeAvatarOption.addEventListener("click", () => {
   showPopup("avatars");
-  disactivateInputsInApp();
+  disactivateFocusableElementsInApp();
 });
 window.addEventListener("resize", adjustToWindowSize);
 app.addEventListener("click", (e) => hideSettings(e));

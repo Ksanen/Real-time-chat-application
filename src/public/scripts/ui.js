@@ -24,18 +24,22 @@ function disactivateContacts() {
     activeContact.classList.remove("contact--active");
   });
 }
-function disactivateInputsInApp() {
+function disactivateFocusableElementsInApp() {
   const app = document.querySelector(".app");
   const inputs = app.querySelectorAll("input");
-  inputs.forEach((input) => {
-    input.setAttribute("inert", "");
+  const contacts = app.querySelectorAll(".contact");
+  const focusableElements = [...inputs, ...contacts];
+  focusableElements.forEach((element) => {
+    element.setAttribute("inert", "");
   });
 }
-function activateInputsInApp() {
+function activateFocusableElementsInApp() {
   const app = document.querySelector(".app");
   const inputs = app.querySelectorAll("input");
-  inputs.forEach((input) => {
-    input.removeAttribute("inert");
+  const contacts = app.querySelectorAll(".contact");
+  const focusableElements = [...inputs, ...contacts];
+  focusableElements.forEach((element) => {
+    element.removeAttribute("inert");
   });
 }
 function scrollToBottom() {
@@ -299,11 +303,11 @@ function popupOptionHandler(popupOptionBtn) {
     case "changeAvatar":
       changeAvatar();
       hidePopup(type);
-      activateInputsInApp();
+      activateFocusableElementsInApp();
       break;
     case "closePopup":
       hidePopup(type);
-      activateInputsInApp();
+      activateFocusableElementsInApp();
       setCorrectAvatarInAvatarsPopup();
       clearErrorMessage();
       break;
