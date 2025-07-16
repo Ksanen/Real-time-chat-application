@@ -144,9 +144,7 @@ function hideSettings(e) {
   if (settings || avatar) return;
   document.querySelector(".settings").classList.remove("settings--open");
 }
-function selectAvatar(e) {
-  const avatar = e.target.closest(".avatar");
-  if (!avatar) return;
+function selectAvatar(avatar) {
   const selectedAvatars = document.querySelectorAll(".avatar--selected");
   selectedAvatars.forEach((selectedAvatar) =>
     selectedAvatar.classList.remove("avatar--selected")
@@ -158,8 +156,9 @@ function generateDefaultAvatars(defaultAvatars) {
   if (defaultAvatars) {
     defaultAvatars = JSON.parse(defaultAvatars);
     defaultAvatars.forEach((avatar) => {
-      const avatarImg = document.createElement("img");
+      const avatarImg = document.createElement("div");
       avatarImg.classList.add("avatar", "avatar--select");
+      avatarImg.setAttribute("tabindex", "0");
       avatarImg.style.backgroundImage = `URL("${avatar.src}")`;
       popupAvatars.appendChild(avatarImg);
     });
@@ -273,5 +272,24 @@ function initialize(avatar, defaultAvatarsToGenerate) {
     app.classList.add("app--no-contacts");
   } else if (contact && window.innerWidth > windowWidth) {
     openChat(contact);
+  }
+}
+function popupOptionHandler(popupOptionBtn) {
+  const option = popupOptionBtn.getAttribute("data-popup-btn-option");
+  const popup = popupOptionBtn.parentNode.parentNode;
+  const type = popup.getAttribute("data-type-of-popup");
+  switch (option) {
+    case "addContact":
+      addChat();
+      break;
+    case "changeAvatar":
+      changeAvatar();
+      hidePopup(type);
+      break;
+    case "closePopup":
+      hidePopup(type);
+      setCorrectAvatarInAvatarsPopup();
+      clearErrorMessage();
+      break;
   }
 }

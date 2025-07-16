@@ -7,33 +7,26 @@ const appMenuContacts = document.querySelector(".app__menu__contacts");
 const backArrow = document.querySelector(".chat__header__back-arrow");
 const chatContent = document.querySelector(".chat__content");
 const appHeaderAvatar = document.querySelector(".app__header__avatar");
-const popupAvatars = document.querySelector(".popup__avatars");
 const changeAvatarOption = document.getElementById("changeAvatar");
 const popups = document.querySelectorAll(".popup");
 popups.forEach((popup) => {
   popup.addEventListener("click", (e) => {
     const popupOptionBtn = e.target.closest("[data-popup-btn-option]");
-    if (popupOptionBtn) {
-      const option = popupOptionBtn.getAttribute("data-popup-btn-option");
-      const popup = popupOptionBtn.parentNode.parentNode;
-      const type = popup.getAttribute("data-type-of-popup");
-      switch (option) {
-        case "addContact":
-          addChat();
-          break;
-        case "changeAvatar":
-          changeAvatar();
-          hidePopup(type);
-          break;
-        case "closePopup":
-          hidePopup(type);
-          setCorrectAvatarInAvatarsPopup();
-          clearErrorMessage();
-          break;
-      }
+    const avatarSelect = e.target.closest(".avatar--select");
+    if (popupOptionBtn) popupOptionHandler(popupOptionBtn);
+    else if (avatarSelect) {
+      selectAvatar(avatarSelect);
+    }
+  });
+  popup.addEventListener("keyup", (e) => {
+    if (e.key !== "Enter") return;
+    const avatarSelect = e.target.closest(".avatar--select");
+    if (avatarSelect) {
+      selectAvatar(avatarSelect);
     }
   });
 });
+
 appMenuContacts.addEventListener("click", (e) => {
   const contact = e.target.closest(".contact");
   if (contact) {
@@ -52,7 +45,6 @@ sendMessageBtb.addEventListener("click", sendMessage);
 backArrow.addEventListener("click", returnToContacts);
 chatContent.addEventListener("click", (e) => showDateOfMessage(e));
 appHeaderAvatar.addEventListener("click", toggleSettings);
-popupAvatars.addEventListener("click", (e) => selectAvatar(e));
 changeAvatarOption.addEventListener("click", () => showPopup("avatars"));
 window.addEventListener("resize", adjustToWindowSize);
 app.addEventListener("click", (e) => hideSettings(e));
