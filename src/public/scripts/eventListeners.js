@@ -19,7 +19,7 @@ popups.forEach((popup) => {
     }
   });
   popup.addEventListener("keyup", (e) => {
-    if (e.key !== "Enter") return;
+    if (e.key !== "Enter" && e.key !== "Space") return;
     const avatarSelect = e.target.closest(".avatar--select");
     if (avatarSelect) {
       selectAvatar(avatarSelect);
@@ -33,13 +33,13 @@ appMenuContacts.addEventListener("click", (e) => {
   openChat(contact);
 });
 appMenuContacts.addEventListener("keyup", (e) => {
-  if (e.key !== "Enter") return;
+  if (e.key !== "Enter" && e.key !== "Space") return;
   const contact = e.target.closest(".contact");
   if (!contact) return;
   openChat(contact);
 });
 window.addEventListener("keyup", (e) => {
-  if (e.key !== "Enter") return;
+  if (e.key !== "Enter" && e.key !== "Space") return;
   const appMobileOpen = document.querySelector(".app--mobile--open");
   if (!appMobileOpen) return;
   sendMessage();
@@ -54,7 +54,7 @@ backArrow.addEventListener("click", returnToContacts);
 chatContent.addEventListener("click", (e) => showDateOfMessage(e));
 appHeaderAvatar.addEventListener("click", toggleSettings);
 appHeaderAvatar.addEventListener("keyup", (e) => {
-  if (e.key !== "Enter") return;
+  if (e.key !== "Enter" && e.key !== "Space") return;
   toggleSettings();
 });
 changeAvatarOption.addEventListener("click", () => {
@@ -62,7 +62,7 @@ changeAvatarOption.addEventListener("click", () => {
   disactivateFocusableElementsInApp();
 });
 changeAvatarOption.addEventListener("keyup", (e) => {
-  if (e.key !== "Enter") return;
+  if (e.key !== "Enter" && e.key !== "Space") return;
   showPopup("avatars");
   disactivateFocusableElementsInApp();
 });
