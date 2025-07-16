@@ -53,7 +53,16 @@ sendMessageBtb.addEventListener("click", sendMessage);
 backArrow.addEventListener("click", returnToContacts);
 chatContent.addEventListener("click", (e) => showDateOfMessage(e));
 appHeaderAvatar.addEventListener("click", toggleSettings);
+appHeaderAvatar.addEventListener("keyup", (e) => {
+  if (e.key !== "Enter") return;
+  toggleSettings();
+});
 changeAvatarOption.addEventListener("click", () => {
+  showPopup("avatars");
+  disactivateFocusableElementsInApp();
+});
+changeAvatarOption.addEventListener("keyup", (e) => {
+  if (e.key !== "Enter") return;
   showPopup("avatars");
   disactivateFocusableElementsInApp();
 });

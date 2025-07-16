@@ -27,8 +27,8 @@ function disactivateContacts() {
 function disactivateFocusableElementsInApp() {
   const app = document.querySelector(".app");
   const inputs = app.querySelectorAll("input");
-  const contacts = app.querySelectorAll(".contact");
-  const focusableElements = [...inputs, ...contacts];
+  const tabindexElements = app.querySelectorAll(`[tabindex="0"]`);
+  const focusableElements = [...inputs, ...tabindexElements];
   focusableElements.forEach((element) => {
     element.setAttribute("inert", "");
   });
@@ -36,8 +36,8 @@ function disactivateFocusableElementsInApp() {
 function activateFocusableElementsInApp() {
   const app = document.querySelector(".app");
   const inputs = app.querySelectorAll("input");
-  const contacts = app.querySelectorAll(".contact");
-  const focusableElements = [...inputs, ...contacts];
+  const tabindexElements = app.querySelectorAll(`[tabindex="0"]`);
+  const focusableElements = [...inputs, ...tabindexElements];
   focusableElements.forEach((element) => {
     element.removeAttribute("inert");
   });
