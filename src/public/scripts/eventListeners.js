@@ -41,7 +41,7 @@ appMenuContacts.addEventListener("keyup", (e) => {
   }
 });
 window.addEventListener("keyup", (e) => {
-  if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+  if (e.key === "Enter") {
     const appMobileOpen = document.querySelector(".app--mobile--open");
     if (!appMobileOpen) return;
     sendMessage();
